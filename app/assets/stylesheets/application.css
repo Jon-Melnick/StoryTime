@@ -13,3 +13,107 @@
  *= require_tree .
  *= require_self
  */
+
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed,
+ figure, figcaption, footer, header, hgroup,
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+ 	margin: 0;
+ 	padding: 0;
+ 	border: 0;
+ 	font-size: 100%;
+ 	font: inherit;
+ 	vertical-align: baseline;
+   /*font-family: 'Open Sans', sans-serif;*/
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+ 	display: block;
+ }
+ body {
+ 	line-height: 1;
+ }
+ ol, ul {
+ 	list-style: none;
+ }
+ blockquote, q {
+ 	quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+ 	content: '';
+ 	content: none;
+ }
+ table {
+ 	border-collapse: collapse;
+ 	border-spacing: 0;
+ }
+
+ .small-text{
+ 	margin: 4px 0;
+ 	font-size: small;
+ }
+
+ .story-view {
+   margin: 0 auto;
+   width: 1010px;
+   height: 700px;
+ }
+
+ .segments {
+   float: right;
+   height: 675px;
+   width: 200px;
+   border: 1px solid black;
+   display: flex;
+   flex-flow: column;
+   justify-content:flex-start;
+   align-items: center;
+   overflow: scroll;
+ }
+
+ .segment {
+   width: 180px;
+   height: 30px;
+   border: 1px solid green;
+   margin: 5px 0;
+   padding: 3px;
+ }
+
+ .story {
+   float: left;
+   width: 800px;
+   height: 600px;
+   border: 1px solid black;
+ }
+
+.hand {
+  float: left;
+  width: 800px;
+  height: 75px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  border: 1px solid black;
+}
+
+.card {
+  width: 120px;
+  height: 50px;
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 5px 10px;
+  text-align: center;
+  line-height: 50px;
+}
