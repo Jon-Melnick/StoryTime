@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email           :string           not null
+#  username        :string           not null
+#  session_token   :string           not null
+#  password_digest :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ActiveRecord::Base
   validates :email, :username, :session_token, presence: true
   validates :email, :username, uniqueness: true
@@ -8,8 +21,8 @@ class User < ActiveRecord::Base
   attr_reader :password
 
 
-  def self.find_by_credentials(email, password)
-    user = User.find_by(email: email)
+  def self.find_by_credentials(identifier, password)
+    user = User.find_by(identifier)
     return nil if user.nil?
     user.is_password?(password) ? user : nil
   end

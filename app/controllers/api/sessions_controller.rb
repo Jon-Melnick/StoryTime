@@ -1,7 +1,14 @@
+require 'byebug'
 class Api::SessionsController < ApplicationController
-   
+
   def create
-    @user = User.find_by_credentials(params[:email_address], params[:password])
+    if params[:signInAs].include?('@')
+      identifier = {email: params[:signInAs]}
+    else
+      identifier = {username: params[:signInAs]}
+    end
+    @user = User.find_by_credentials(identifier, params[:password])
+
     if @user
       login(@user)
       render json: @user

@@ -1,7 +1,13 @@
+require 'byebug'
 class Api::UsersController < ApplicationController
 
   def index
-    @users = User.all
+    if params[:session_token]
+      @user = User.find_by(session_token: params[:session_token])
+      render json: @user
+    else
+      @users = User.all
+    end
   end
 
   def show
