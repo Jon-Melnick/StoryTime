@@ -1,9 +1,17 @@
 export default function reducer(state={
+    stories: {},
     story: {
+      fetched: false,
       id: null,
       title: null,
+      currentSection: null,
       description: null,
       genre: null,
+      sections: []
+    },
+    genres: {
+      fetched: false,
+      gens: null
     },
     fetching: false,
     fetched: false,
@@ -11,18 +19,25 @@ export default function reducer(state={
   }, action) {
 
     switch (action.type) {
-      case "FETCH_STORY": {
-        return {...state, fetching: true}
-      }
-      case "FETCH_STORY_REJECTED": {
-        return {...state, fetching: false, error: action.payload}
-      }
-      case "FETCH_STORY_FULFILLED": {
+      case "FETCH_STORIES": {
+        console.log(action);
         return {
           ...state,
           fetching: false,
-          fethed: true,
-          story: action.payload,
+          fetched: true,
+          stories: action.data,
+        }
+      }
+      // case "FETCH_STORY": {
+      //   return {...state, fetching: true}
+      // }
+      case "FETCH_STORY_REJECTED": {
+        return {...state, fetching: false, error: action.payload}
+      }
+      case "FETCH_STORY": {
+        return {
+          ...state,
+          story: {fetch: true, currentSection: 1, ...action.data},
         }
       }
       case "SET_STORY_TITLE": {
@@ -35,8 +50,35 @@ export default function reducer(state={
         return {
           ...state,
           story: {...state.story, description: action.payload}
+        }
       }
-    }
+      case "SET_CURRENT_SECTION": {
+        return {
+          ...state,
+          story: {...state.story, currentSection: action.data}
+        }
+      }
+      case "FETCH_GENRE":{
+        return{
+          ...state,
+          genres:{fetched: true, gens: action.data}
+        }
+      }
+      case "UPDATE_STORIES":{
+        return{
+          ...state,
+          stories: [...state.stories, action.data]
+        }
+      }
+      case "UPDATE_STORY_SECTIONS":{
+          return{
+            ...state,
+            story: {...state.story,
+                    currentSection: action.data,
+                    sections: [...state.story.sections, action.data]
+                  }
+          }
+      }
   }
   return state
 }

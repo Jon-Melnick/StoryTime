@@ -37,7 +37,7 @@ class Login extends React.Component{
     }
     this.props.userLoginRequest(formData).then(
       (res)=>hashHistory.push('/'),
-      (err)=>this.setState({ errors: err.data.errors })
+      (err)=>this.setState({ errors: err.response.data.errors })
     )
   }
 

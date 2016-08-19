@@ -1,7 +1,9 @@
 class Api::StoriesController < ApplicationController
 
   def index
-    @stories = Story.all
+    @stories = Story.all.select do |story|
+      story.team_members.any?{|member| member.user_id == current_user.id}
+    end
   end
 
   def show
@@ -12,6 +14,7 @@ class Api::StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.save
+      Writer.create(user_id: current_user.id, story_id: @story.id)
       render 'api/stories/show'
     else
       @errors = @story.errors.full_messages
@@ -32,7 +35,7 @@ class Api::StoriesController < ApplicationController
   private
 
   def story_params
-    params.require(:story).permit(:title, :description)
+    params.require(:story).permit(:title, :description, :genre_id)
   end
 
 end

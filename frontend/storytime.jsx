@@ -1,7 +1,7 @@
 const React = require('react'),
       ReactDOM = require('react-dom'),
       Login = require('./components/login'),
-      Dashboard = require('./components/dashboard/view');
+      Dashboard = require('./components/dashboard/dash');
 
 import { Provider } from 'react-redux'
 import { Router, hashHistory } from 'react-router'

@@ -29,7 +29,7 @@ class NavigationBar extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/" className="navbar-brand">Red Dice</Link>
+            <Link to={`/dashboard/${this.props.auth.user.id}`} className="navbar-brand">Story Time</Link>
           </div>
 
           <div className="collapse navbar-collapse">

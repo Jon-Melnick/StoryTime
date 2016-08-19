@@ -11,5 +11,5 @@
 #
 
 class Section < ActiveRecord::Base
-  validates :user_id, :story_id, :body, uniqueness: true
+  validates :user_id, :story_id, :body, presence: true
 end

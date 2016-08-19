@@ -5,6 +5,14 @@ class Api::UsersController < ApplicationController
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
       render json: @user
+    elsif params[:email]
+      @user = User.find_by(email: params[:email])
+      if @user
+        render json: @user
+      end
+    elsif params[:username]
+      @user = User.find_by(username: params[:username])
+      render json: @user if @user
     else
       @users = User.all
     end

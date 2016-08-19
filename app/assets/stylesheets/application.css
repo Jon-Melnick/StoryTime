@@ -93,8 +93,14 @@
  .story {
    float: left;
    width: 800px;
-   height: 600px;
+   height: 570px;
    border: 1px solid black;
+ }
+
+ .story-bar {
+   float: left;
+   width: 800px;
+   height: 30px;
  }
 
 .hand {

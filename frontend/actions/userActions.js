@@ -3,16 +3,19 @@ import setAuthorizationToken from '../utils/setAuthorizationToken'
 
 import { SET_CURRENT_USER } from './types'
 
+
+
 export function userSignupRequest(userData) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
     return axios.post('api/users', {user: userData})
   }
 }
 
 export function userExist(data) {
-  console.log(data.email);
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
-    return axios.get(`api/users`, data)
+    return axios.get(`api/users`, {params: data})
   }
 }
 
@@ -24,8 +27,8 @@ export function setCurrentUser(user) {
 }
 
 export function getCurrentUser(token) {
-  console.log(token);
   const params = {params: {session_token: token}}
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch=> {
     return axios.get(`api/users`, params).then(res => {
       setAuthorizationToken(res.data.session_token);
@@ -35,22 +38,27 @@ export function getCurrentUser(token) {
 }
 
 export function userLoginRequest(data) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
-    return axios.post(`api/session`, data).then(res => {
-      const token = res.data.session_token;
-      console.log(res);
-      localStorage.setItem('jwtToken', token);
-      setAuthorizationToken(token);
-      dispatch(setCurrentUser(res.data));
-    })
+    return axios.post(`api/session`, data).then(
+      (res) => {
+        const token = res.data.session_token;
+        localStorage.setItem('jwtToken', token);
+        setAuthorizationToken(token);
+        dispatch(setCurrentUser(res.data));
+      }
+    )
   }
 }
 
 export function logout() {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
-    localStorage.removeItem('jwtToken');
-    setAuthorizationToken(false);
-    dispatch(setCurrentUser({}));
+    return axios.delete('api/session').then(()=>{
+      localStorage.removeItem('jwtToken');
+      setAuthorizationToken(false);
+      dispatch(setCurrentUser({}));
+    })
   }
 }
 
@@ -77,4 +85,9 @@ export function setUserAge(age) {
     type: 'SET_USER_AGE',
     payload: age,
   }
+}
+
+function getCSRF(){
+  const header = document.querySelector(`meta[name="csrf-token"]`);
+  return header && header.content;
 }
