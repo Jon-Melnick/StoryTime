@@ -147,3 +147,7 @@
   margin: 1em;
   padding: .6em;
 }
+
+.border {
+  border: 1px solid black;
+}

@@ -17,10 +17,6 @@ class Dash extends React.Component{
     this.onClick = this.onClick.bind(this);
   }
 
-  _redirectIfNotAllowed(nextState, replace) {
-    replace('/dashboard/' + currentUser.id);
-  }
-
   componentWillMount(){
     if (this.props.auth.user.id !== parseInt(this.props.routeParams.userId)) {
       let id = currentUser.id ? currentUser.id : this.props.auth.user.id
@@ -39,11 +35,10 @@ class Dash extends React.Component{
 
   render(){
     return (
-      <div>
-        <Profile />
-        <Stories stories={this.props.stories}/>
-        <Link to="/newStory">New Story</Link>
-        <Friends />
+      <div className='row'>
+        <Profile klass='col-xs-12 col-md-12'/>
+        <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}/>
+        <Friends klass='col-xs-12 col-md-4'/>
       </div>
     )
   }

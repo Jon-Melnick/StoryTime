@@ -33,7 +33,9 @@ export function setStory(data) {
 }
 
 export function removeStory() {
-  return dispatch({type: "REMOVE_STORY"})
+  return {
+    type: "REMOVE_STORY"
+  }
 }
 
 

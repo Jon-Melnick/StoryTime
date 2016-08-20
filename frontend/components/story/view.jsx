@@ -7,7 +7,8 @@ import { getStory } from '../../actions/storyActions'
 import { removeStory } from '../../actions/storyActions'
 import { createSection } from '../../actions/storyActions'
 import { getNewCards } from '../../actions/storyActions'
-
+import map from 'lodash/map'
+import { hashHistory } from 'react-router'
 
 class View extends React.Component {
   constructor(props){
@@ -30,17 +31,40 @@ class View extends React.Component {
     if (this.props.story.fetched === false){
       let id = this.props.routeParams.storyId;
       this.props.getStory(id).then(()=>{
-        if (this.props.story.currentSection) {
-          this.setState({sectionContent: this.props.story.currentSection.body,
-                         hand: this.props.story.hand})
-        }
+        this._redirectIfNotAllowed(this.setThisState.bind(this))
       })
     } else {
-      if (this.props.story.currentSection) {
-        this.setState({sectionContent: this.props.story.currentSection.body,
-                       hand: this.props.story.hand})
-      }
+      this._redirectIfNotAllowed(this.setThisState.bind(this))
     }
+  }
+
+  componentWillReceiveProps(props){
+    if (this.props.routeParams.storyId !== props.routeParams.storyId) {
+      const prevId = this.props.routeParams.storyId;
+      this.props.getStory(props.routeParams.storyId).then(
+        (res)=>this._redirectIfNotAllowed(this.setThisState.bind(this)),
+        (err) =>{hashHistory.push('/dashboard/' + this.props.auth.user.id);
+                 return}
+    )}
+  }
+
+  setThisState(){
+    if (this.props.story.currentSection) {
+      this.setState({sectionContent: this.props.story.currentSection.body,
+                     hand: this.props.story.hand})
+    }
+  }
+
+  _redirectIfNotAllowed(callback) {
+    const { user, story, auth } = this.props
+    const writer_ids = map(story.authors, (author)=>{
+      return author.id
+    })
+    if (writer_ids.indexOf(auth.user.id) < 0) {
+      hashHistory.push('/dashboard/' + auth.user.id);
+      return
+    }
+    callback()
   }
 
   selectCard(e){

@@ -51,11 +51,18 @@ class Story < ActiveRecord::Base
 
   def author_hand(id)
     hand = {}
+    return if !team_members.map{|writer| writer.user_id}.include?(id)
     team_members.find_by(user_id: id, story_id: self.id).hand.each_with_index do |word, idx|
       word = JSON.parse(word)
       hand[idx] = word
     end
     hand
+  end
+
+  def author_id(id)
+    team = team_members
+    return if !team_members.map{|writer| writer.user_id}.include?(id)
+    team_members.find_by(user_id: id).id
   end
 
 end

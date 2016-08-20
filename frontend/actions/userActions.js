@@ -25,7 +25,6 @@ export function userExist(data) {
 }
 
 export function setCurrentUser(user) {
-  console.log('hi');
   return {
     type: SET_CURRENT_USER,
     user

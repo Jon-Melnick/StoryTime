@@ -38,11 +38,16 @@ export default function reducer(state=defaultOpts, action) {
       case "FETCH_STORY": {
         return {
           ...state,
-          story: {fetch: true, currentSection: action.data.sections[0] || 'Start the story...', ...action.data},
+          story: {fetch: true, currentSection: action.data.sections[0] || {body: 'Start the story...'}, ...action.data},
         }
       }
       case "REMOVE_STORY":{
-          console.log('boom');
+        return {
+          ...state,
+          story: {
+            ...defaultOpts.story
+          }
+        }
       }
       case "SET_STORY_TITLE": {
         return {

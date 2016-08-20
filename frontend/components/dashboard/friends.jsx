@@ -4,7 +4,7 @@ const React = require('react')
 const Friends = React.createClass({
   render(){
     return (
-      <div>List of Friends</div>
+      <div className={this.props.klass}>List of Friends</div>
     )
   }
 })

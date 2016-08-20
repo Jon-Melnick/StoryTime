@@ -8,4 +8,4 @@ json.authors @story.authors do |author|
 end
 
 json.hand @story.author_hand(current_user.id)
-json.writer_id @story.team_members.find_by(user_id: current_user.id).id
+json.writer_id @story.author_id(current_user.id)

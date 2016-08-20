@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 import { hashHistory } from 'react-router'
 import { getStory } from '../../actions/storyActions'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 class Stories extends React.Component{
   constructor(props){
@@ -36,9 +37,12 @@ class Stories extends React.Component{
          stories.push(<li key={story.id} value={story.id} onClick={this.onClick} className='story-list'><div><span className='story-title-view'>{story.title}</span> -- {story.description}</div><div className='author-list'>Authors: {authors}</div></li>)
       });
     }
+    const klass = 'stories border ' + this.props.klass
     return (
-      <div className='stories'>
-        <ul>
+      <div className={this.props.klass}>
+        <div className='page-header'><h1>Your Stories: {isEmpty(this.props.stories) ? <small> you currently have none</small> : ''}</h1></div>
+        <div className='pull-right' ><Link to="/newStory">New Story</Link></div>
+        <ul className='list-group'>
         {stories}
         </ul>
       </div>
