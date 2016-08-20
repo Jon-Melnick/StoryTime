@@ -15,16 +15,25 @@ class Stories extends React.Component{
 
   onClick(e){
     e.preventDefault();
-    this.props.getStory(e.currentTarget.value)
-    hashHistory.push(`/story/${e.currentTarget.value}`)
+    const target = e.currentTarget.value
+    this.props.getStory(target).then(()=>{
+      hashHistory.push(`/story/${target}`)
+    })
   }
 
   render(){
-    console.log(this.props.stories);
     let stories = []
     if (!isEmpty(this.props.stories)){
       this.props.stories.forEach((story) => {
-         stories.push(<li key={story.id} value={story.id} onClick={this.onClick}>{story.title}</li>)
+        let authors = ``
+        map(story.authorNames, (val)=>{
+          if (authors === '') {
+            authors += val
+          } else {
+            authors += ', ' + val
+          }
+        })
+         stories.push(<li key={story.id} value={story.id} onClick={this.onClick} className='story-list'><div><span className='story-title-view'>{story.title}</span> -- {story.description}</div><div className='author-list'>Authors: {authors}</div></li>)
       });
     }
     return (

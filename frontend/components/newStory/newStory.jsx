@@ -40,7 +40,9 @@ class NewStory extends React.Component{
       genre_id: this.state.genre_id
     }
     this.props.createStory(data).then(
-      (res)=>hashHistory.push('/'),
+      (res)=>{
+        const id = this.props.stories[this.props.stories.length - 1].id
+        hashHistory.push('/story/' + id)},
       (err)=>this.setState({ errors: err.data.errors })
     )
   }
@@ -91,10 +93,11 @@ NewStory.propTypes = {
   createStory: React.PropTypes.func.isRequired
 }
 
-function newStoryProps(state) {
+function mapStateToProps(state) {
   return{
-    genres: state.story.genres
+    genres: state.story.genres,
+    stories: state.story.stories
   }
 }
 
-export default connect(newStoryProps, { getGenres, createStory })(NewStory);
+export default connect(mapStateToProps, { getGenres, createStory })(NewStory);

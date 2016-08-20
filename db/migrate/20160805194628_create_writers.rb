@@ -3,7 +3,7 @@ class CreateWriters < ActiveRecord::Migration
     create_table :writers do |t|
       t.integer :user_id, null: false
       t.integer :story_id, null: false
-
+      t.string :hand, array: true, default: []
       t.timestamps null: false
     end
     add_index :writers, :user_id

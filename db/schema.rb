@@ -75,10 +75,11 @@ ActiveRecord::Schema.define(version: 20160805211708) do
   add_index "words", ["genre_id", "word"], name: "index_words_on_genre_id_and_word", unique: true, using: :btree
 
   create_table "writers", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "story_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                 null: false
+    t.integer  "story_id",                null: false
+    t.string   "hand",       default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "writers", ["story_id"], name: "index_writers_on_story_id", using: :btree

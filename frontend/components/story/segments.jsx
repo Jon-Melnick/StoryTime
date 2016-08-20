@@ -6,8 +6,8 @@ const Segment = React.createClass({
   render(){
     const sections = [];
     if (!isEmpty(this.props.sections)) {
-      this.props.sections.forEach(section => {
-        sections.push(<li onClick={this.props.changeView} className="segment" key={section.id} value={section.id}>{section.body.slice(0, 20)}</li>)
+      this.props.sections.forEach((section, id) => {
+        sections.push(<li onClick={this.props.changeView} className="segment" key={section.id} value={id}>{section.body.slice(0, 20)}</li>)
       })
     }
     return (

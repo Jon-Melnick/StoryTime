@@ -8,7 +8,12 @@ import { SET_CURRENT_USER } from './types'
 export function userSignupRequest(userData) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
-    return axios.post('api/users', {user: userData})
+    return axios.post('api/users', {user: userData}).then(res =>{
+      const token = res.data.session_token;
+      localStorage.setItem('jwtToken', token);
+      setAuthorizationToken(token);
+      dispatch(setCurrentUser(res.data));
+    })
   }
 }
 
@@ -20,6 +25,7 @@ export function userExist(data) {
 }
 
 export function setCurrentUser(user) {
+  console.log('hi');
   return {
     type: SET_CURRENT_USER,
     user
@@ -57,8 +63,14 @@ export function logout() {
     return axios.delete('api/session').then(()=>{
       localStorage.removeItem('jwtToken');
       setAuthorizationToken(false);
-      dispatch(setCurrentUser({}));
+      dispatch(clearStores());
     })
+  }
+}
+
+export function clearStores() {
+  return {
+    type: "CLEAR"
   }
 }
 

@@ -112,7 +112,10 @@ class Signup extends React.Component{
       password: this.state.password1
     }
     this.props.userSignupRequest(formData).then(
-      (res) =>hashHistory.push('/'),
+      (res) =>{
+        const id = this.props.auth.user.id;
+        console.log(id);
+        hashHistory.push('/dashboard/' + id)},
       (err) =>this.setState({errors: err.response.data.errors})
     )
   }
@@ -188,4 +191,8 @@ Signup.propTypes = {
   userExist: React.PropTypes.func.isRequired
 }
 
-export default connect(null, { userSignupRequest, userExist })(Signup);
+function mapStateToProps(state) {
+  return {auth: state.auth}
+}
+
+export default connect(mapStateToProps, { userSignupRequest, userExist })(Signup);

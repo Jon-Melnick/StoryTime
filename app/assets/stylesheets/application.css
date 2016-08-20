@@ -79,7 +79,7 @@
    flex-flow: column;
    justify-content:flex-start;
    align-items: center;
-   overflow: scroll;
+   /*overflow: scroll;*/
  }
 
  .segment {
@@ -95,6 +95,12 @@
    width: 800px;
    height: 570px;
    border: 1px solid black;
+   padding: 4em;
+   font-size: 20px;
+ }
+
+ #new-section-form{
+   font-size: 20px;
  }
 
  .story-bar {
@@ -122,4 +128,22 @@
   margin: 5px 10px;
   text-align: center;
   line-height: 50px;
+}
+.selected-card{
+  height: 65px;
+  background-color: blue;
+}
+
+.author-list{
+  padding-left: 1em;
+}
+
+.story-title-view{
+  font-size: 1.4em;
+}
+
+.story-list{
+  cursor: pointer;
+  margin: 1em;
+  padding: .6em;
 }

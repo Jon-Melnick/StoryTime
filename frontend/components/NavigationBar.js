@@ -6,7 +6,6 @@ import { logout } from '../actions/userActions'
 class NavigationBar extends React.Component {
 
   logout(e){
-    e.preventDefault();
     this.props.logout();
   }
 

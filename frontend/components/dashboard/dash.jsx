@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import { getAllStoriesBy } from '../../actions/storyActions'
 import { connect } from 'react-redux'
 import Stories from './stories'
+import {hashHistory} from 'react-router'
 
 
 class Dash extends React.Component{
@@ -16,7 +17,15 @@ class Dash extends React.Component{
     this.onClick = this.onClick.bind(this);
   }
 
-  componentDidMount(){
+  _redirectIfNotAllowed(nextState, replace) {
+    replace('/dashboard/' + currentUser.id);
+  }
+
+  componentWillMount(){
+    if (this.props.auth.user.id !== parseInt(this.props.routeParams.userId)) {
+      let id = currentUser.id ? currentUser.id : this.props.auth.user.id
+      hashHistory.push('/dashboard/' + id)
+    }
     if (this.props.fetched === false) {
       this.props.getAllStoriesBy()
     }

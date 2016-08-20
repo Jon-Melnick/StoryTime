@@ -36,7 +36,9 @@ class Login extends React.Component{
       password: this.state.password
     }
     this.props.userLoginRequest(formData).then(
-      (res)=>hashHistory.push('/'),
+      (res)=>{
+        hashHistory.push('/dashboard/' + this.props.auth.user.id);
+      },
       (err)=>this.setState({ errors: err.response.data.errors })
     )
   }
@@ -77,4 +79,10 @@ Login.propTypes = {
   userLoginRequest: React.PropTypes.func.isRequired,
 }
 
-export default connect(null, { userLoginRequest })(Login);
+function mapStateToProps(state) {
+  return{
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, { userLoginRequest })(Login);

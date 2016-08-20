@@ -1,4 +1,5 @@
-export default function reducer(state={
+
+const defaultOpts={
     user: {
       id: null,
       name: null,
@@ -7,7 +8,9 @@ export default function reducer(state={
     fetching: false,
     fetched: false,
     error: null,
-  }, action) {
+  }
+
+export default function reducer(state=defaultOpts, action) {
 
     switch (action.type) {
       case "FETCH_USER": {
@@ -34,8 +37,13 @@ export default function reducer(state={
         return {
           ...state,
           user: {...state.user, age: action.payload}
+        }
       }
-    }
+      case "CLEAR":{
+        return{
+          ...defaultOpts
+        }
+      }
   }
   return state
 }

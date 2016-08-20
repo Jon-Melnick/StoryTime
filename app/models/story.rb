@@ -32,4 +32,30 @@ class Story < ActiveRecord::Base
     foreign_key: :id, #column_name_id
     class_name: 'Genre' #class_name ex. (String)
 
+  def author_names
+    authors = self.authors
+    authors.map{|author| author.username}
+  end
+
+  def generate_hand
+    hand = []
+    genre_words = Word.where(genre_id: self.genre_id)
+    words_length = genre_words.length
+    until hand.length == 5
+      num = rand(words_length)
+      hand << num unless hand.include?(num)
+    end
+
+    hand.map{|idx| genre_words[idx].to_json}
+  end
+
+  def author_hand(id)
+    hand = {}
+    team_members.find_by(user_id: id, story_id: self.id).hand.each_with_index do |word, idx|
+      word = JSON.parse(word)
+      hand[idx] = word
+    end
+    hand
+  end
+
 end

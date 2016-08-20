@@ -1,4 +1,4 @@
-export default function reducer(state={
+const defaultOpts = {
     stories: {},
     story: {
       fetched: false,
@@ -16,11 +16,12 @@ export default function reducer(state={
     fetching: false,
     fetched: false,
     error: null,
-  }, action) {
+  }
+
+export default function reducer(state=defaultOpts, action) {
 
     switch (action.type) {
       case "FETCH_STORIES": {
-        console.log(action);
         return {
           ...state,
           fetching: false,
@@ -37,8 +38,11 @@ export default function reducer(state={
       case "FETCH_STORY": {
         return {
           ...state,
-          story: {fetch: true, currentSection: 1, ...action.data},
+          story: {fetch: true, currentSection: action.data.sections[0] || 'Start the story...', ...action.data},
         }
+      }
+      case "REMOVE_STORY":{
+          console.log('boom');
       }
       case "SET_STORY_TITLE": {
         return {
@@ -78,6 +82,11 @@ export default function reducer(state={
                     sections: [...state.story.sections, action.data]
                   }
           }
+      }
+      case "CLEAR":{
+        return {
+          ...defaultOpts
+        }
       }
   }
   return state

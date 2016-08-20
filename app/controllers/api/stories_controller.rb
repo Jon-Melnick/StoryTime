@@ -14,7 +14,8 @@ class Api::StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.save
-      Writer.create(user_id: current_user.id, story_id: @story.id)
+      hand = @story.generate_hand
+      Writer.create(user_id: current_user.id, story_id: @story.id, hand: hand)
       render 'api/stories/show'
     else
       @errors = @story.errors.full_messages

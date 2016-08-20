@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :sections, only: [:create, :show, :index]
     resources :genres, only: [:create, :index, :show]
     resources :words, only: [:create, :show]
+    resources :writers, only: [:create, :update]
   end
 end

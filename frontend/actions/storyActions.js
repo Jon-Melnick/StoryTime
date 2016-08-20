@@ -32,6 +32,10 @@ export function setStory(data) {
   }
 }
 
+export function removeStory() {
+  return dispatch({type: "REMOVE_STORY"})
+}
+
 
 
 export function createStory(data) {
@@ -88,6 +92,17 @@ export function setCurrentSection(data) {
   return {
     type: "SET_CURRENT_SECTION",
     data
+  }
+}
+
+export function getNewCards(id, cards) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch => {
+    return axios.patch('api/writers/' + id, {cards: cards}).then(
+      res=>{
+        dispatch(setStory(res.data));
+        dispatch(updateStories(res.data));
+      })
   }
 }
 

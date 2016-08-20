@@ -3,5 +3,6 @@ json.array! @stories do |story|
   json.title story.title
   json.description story.description
   json.genre story.genre
+  json.authorNames story.author_names
 
 end
