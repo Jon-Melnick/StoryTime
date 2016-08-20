@@ -20,10 +20,10 @@ if (localStorage.jwtToken) {
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
+  console.log('hello');
   const store = <Provider store={store}>
     <Router history={hashHistory} routes={routes} />
   </Provider>
-  console.log('hello');
   ReactDOM.render(
     <div>hello</div>,
     document.getElementById('content')
