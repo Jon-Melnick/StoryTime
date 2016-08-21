@@ -18,7 +18,7 @@ if (localStorage.jwtToken) {
   store.dispatch(getCurrentUser(localStorage.jwtToken))
 }
 
-
+console.log("boosh");
 document.addEventListener('DOMContentLoaded', ()=> {
   console.log('hello');
   const store = <Provider store={store}>
