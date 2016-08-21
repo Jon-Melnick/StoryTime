@@ -9,16 +9,14 @@ class NavigationBar extends React.Component {
 
   logout(e){
     this.props.logout();
-    hashHistory.push('/login')
   }
 
   redirectTo(e){
     e.preventDefault();
     if (e.target.name === "/logout") {
-      this.logout()
-    } else {
-      hashHistory.push(e.target.name)
+      this.props.logout()
     }
+    hashHistory.push(e.target.name)
   }
 
   updateMini(e){
@@ -30,9 +28,10 @@ class NavigationBar extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+    console.log(isAuthenticated);
     const links = isAuthenticated ?
       <ul className="nav navbar-nav navbar-right">
-        <li><a href="#" onClick={this.redirectTo.bind(this)} name="/logout">Logout</a></li>
+        <li><a href="#" onClick={this.logout} name="/logout">Logout</a></li>
       </ul>
       :
       <ul className="nav navbar-nav navbar-right">
@@ -40,24 +39,23 @@ class NavigationBar extends React.Component {
         <li><a href="#" onClick={this.redirectTo} name="/login">Login</a></li>
       </ul>;
 
-    const btn = <button type="button"
-                        className="navbar-toggle collapsed"
-                        data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                        aria-expanded="false">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
-
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
+            <button type="button"
+                    className="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
             <Link to={`/dashboard/${this.props.auth.user.id}`} className="navbar-brand">Story Time</Link>
           </div>
 
-          <div className="" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             { links }
           </div>
         </div>
