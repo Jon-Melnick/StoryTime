@@ -107,6 +107,10 @@ class View extends React.Component {
     })
   }
 
+  addWriter(){
+    
+  }
+
   _changeView(e){
     let idx = e.target.value;
     this.setState({sectionContent: this.props.story.sections[idx].body});
@@ -142,7 +146,10 @@ class View extends React.Component {
       <div className="story-view">
         <div id="view" className="story"> {view} </div>
         <Segment changeView={this._changeView} sections={sections}/>
-        <div className="story-bar"><button onClick={this.newSection}>Create new section</button></div>
+        <div className="story-bar">
+          <button onClick={this.newSection}>Create new section</button>
+          <button onClick={this.addWriter}>Add a writer</button>
+        </div>
         <Hand words={this.state.hand || hand} selectCard={this.selectCard} selectedCards={this.state.selectedCards}/>
       </div>
     )
