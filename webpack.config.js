@@ -1,5 +1,4 @@
 var path = require("path");
-
 module.exports = {
   context: __dirname,
   entry: "./frontend/storytime.jsx",

@@ -2,9 +2,18 @@
   "name": "storytime",
   "version": "1.0.0",
   "description": "Story building fun with friends",
-  "main": "webpack.config.js",
+  "main": "index.js",
   "directories": {
+    "doc": "docs",
     "test": "test"
+  },
+  "engines": {
+    "node": "5.9.1",
+    "npm": "3.7.3"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "axios": "0.13.1",
@@ -32,9 +41,6 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jon-Melnick/StoryTime.git"

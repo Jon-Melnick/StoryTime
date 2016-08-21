@@ -1,5 +1,3 @@
-console.log("boosh");
-
 const React = require('react'),
       ReactDOM = require('react-dom'),
       Login = require('./components/login'),
@@ -21,12 +19,10 @@ if (localStorage.jwtToken) {
 }
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  console.log('hello');
-  const store = <Provider store={store}>
-    <Router history={hashHistory} routes={routes} />
-  </Provider>
   ReactDOM.render(
-    <div>hello</div>,
+    <Provider store={store}>
+      <Router history={hashHistory} routes={routes} />
+    </Provider>,
     document.getElementById('content')
   )
 })
