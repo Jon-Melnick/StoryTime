@@ -5,7 +5,7 @@ class Api::GenresController < ApplicationController
   end
 
   def show
-    @words = Genre.find(params[:id]).words
+    @genre = Genre.find(params[:id])
   end
 
   def create

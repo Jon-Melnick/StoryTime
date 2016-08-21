@@ -55,9 +55,19 @@ class NavigationBar extends React.Component {
         <div className="container-fluid">
           <div className="navbar-header">
             <Link to={`/dashboard/${this.props.auth.user.id}`} className="navbar-brand">Story Time</Link>
-          </div>
 
+          </div>
           <div className="" id="bs-example-navbar-collapse-1">
+            <ul className='nav navbar-nav'>
+              <li><a href='#'
+                     name='/home'>home</a></li>
+              <li><a href='#'
+                     name={`/dashboard/${this.props.auth.user.id}`}
+                     onClick={this.redirectTo}>dashboard</a></li>
+              <li><a href='#'
+                     name='/genre'
+                     onClick={this.redirectTo}>genres</a></li>
+            </ul>
             { links }
           </div>
         </div>

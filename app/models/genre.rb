@@ -21,6 +21,9 @@ class Genre < ActiveRecord::Base
     class_name: 'Word' #class_name ex. (String)
 
 
+  def total_words
+    words.length
+  end
   # def self.words(genre)
   #   words = Genre.all.where(genre_type: genre)
   #   words.map{|el| el.word }

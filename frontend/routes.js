@@ -7,6 +7,7 @@ import Login from './components/login'
 import Story from './components/story/view'
 import NewStory from './components/newStory/newStory'
 import Dash from './components/dashboard/dash'
+import Genre from './components/genres/genre'
 
 export default (
   <Route path="/" component={App}>
@@ -14,8 +15,10 @@ export default (
     <Route path="story/:storyId" component={Story}/>
     <Route path="signup" component={Signup} />
     <Route path="login" component={Login} />
+    <Route path="genre" component={Genre} />
     <Route path="newStory" component={NewStory} />
     <Route path="dashboard/:userId" component={Dash} onEnter={ _ensureLoggedIn }/>
+
   </Route>
 )
 

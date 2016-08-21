@@ -7,7 +7,8 @@ class Api::WordsController < ApplicationController
   def create
     @word = Word.new(word_params)
     if @word.save
-      render json: @word
+      @genre = Genre.find(params[:word][:genre_id])
+      render 'api/genres/show'
     else
       @errors = @word.errors.full_messages
       render 'api/shared/errors'
@@ -17,7 +18,7 @@ class Api::WordsController < ApplicationController
   private
 
   def word_params
-    params.require(:word).permit(:word)
+    params.require(:word).permit(:word, :genre_id)
   end
-  
+
 end
