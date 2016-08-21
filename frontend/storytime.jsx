@@ -1,3 +1,5 @@
+console.log("boosh");
+
 const React = require('react'),
       ReactDOM = require('react-dom'),
       Login = require('./components/login'),
@@ -18,7 +20,6 @@ if (localStorage.jwtToken) {
   store.dispatch(getCurrentUser(localStorage.jwtToken))
 }
 
-console.log("boosh");
 document.addEventListener('DOMContentLoaded', ()=> {
   console.log('hello');
   const store = <Provider store={store}>
