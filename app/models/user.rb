@@ -20,6 +20,36 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
+  has_many :teams, #method_name, ends with s
+    primary_key: :id, #typically id
+    foreign_key: :user_id, #column_name_id
+    class_name: 'Writer' #class_name ex. (String)
+
+  has_many :stories, #method name
+    through: :teams,
+    source: :story
+
+  has_many :connections, #method_name, ends with s
+    primary_key: :id, #typically id
+    foreign_key: :requester_id, #column_name_id
+    class_name: 'Friendship' #class_name ex. (String)
+
+  has_many :friends, #method name
+    through: :connections,
+    source: :receiver
+
+  has_many :sections, #method_name, ends with s
+    primary_key: :id, #typically id
+    foreign_key: :user_id, #column_name_id
+    class_name: 'Section' #class_name ex. (String)
+
+  def pending_relationships
+    connections.where(status: 'pending').map(&:receiver)
+  end
+
+  def friendships
+    connections.where(status: 'friends').map(&:receiver)
+  end
 
   def self.find_by_credentials(identifier, password)
     user = User.find_by(identifier)

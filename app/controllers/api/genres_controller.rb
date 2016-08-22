@@ -1,7 +1,7 @@
 class Api::GenresController < ApplicationController
 
   def index
-    @genres = Genre.all
+    @genres = Genre.order(:genre_type)
   end
 
   def show

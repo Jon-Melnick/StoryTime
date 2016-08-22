@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805211708) do
+ActiveRecord::Schema.define(version: 20160821210207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "requester_id",                     null: false
+    t.integer  "receiver_id",                      null: false
+    t.string   "status",       default: "pending", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "friendships", ["requester_id", "receiver_id"], name: "index_friendships_on_requester_id_and_receiver_id", unique: true, using: :btree
 
   create_table "genre_words", force: :cascade do |t|
     t.integer  "genre_id",   null: false

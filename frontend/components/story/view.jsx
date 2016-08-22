@@ -9,6 +9,7 @@ import { createSection } from '../../actions/storyActions'
 import { getNewCards } from '../../actions/storyActions'
 import map from 'lodash/map'
 import { hashHistory } from 'react-router'
+import Authors from '../authors/authors'
 
 class View extends React.Component {
   constructor(props){
@@ -18,6 +19,7 @@ class View extends React.Component {
       body: '',
       sectionContent: '',
       hand: null,
+      view: 'story',
       selectedCards: [null, null, null, null, null]
     }
     this.newSection = this.newSection.bind(this);
@@ -108,7 +110,8 @@ class View extends React.Component {
   }
 
   addWriter(){
-    
+    const view = this.state.view === 'story' ? 'find authors' : 'story'
+    this.setState({view: view})
   }
 
   _changeView(e){
@@ -136,11 +139,29 @@ class View extends React.Component {
     this.setState({newSection: !this.state.newSection, body: ''})
   }
 
+
+  getView(){
+    let view;
+    switch (this.state.view) {
+      case 'story':
+        view = <div className='story-inner'>
+          {this.state.newSection ? <textarea id='new-section-form' className='form-control' rows="12" onChange={this.onChange} value={this.state.body} /> : <div>{this.state.sectionContent}</div>}
+        </div>
+        break;
+      case 'find authors':
+        view = <div>
+            <Authors/>
+            </div>
+        break;
+    }
+    return view;
+  }
+
   render(){
     const { user, story, auth } = this.props
     const sections = story.sections
     let hand = ["", "", "", "", ""]
-    const view = this.state.newSection ? <textarea id='new-section-form' className='form-control' rows="12" onChange={this.onChange} value={this.state.body} /> : <div>{this.state.sectionContent}</div>
+    const view = this.getView()
 
     return(
       <div className="story-view">
@@ -148,7 +169,7 @@ class View extends React.Component {
         <Segment changeView={this._changeView} sections={sections}/>
         <div className="story-bar">
           <button onClick={this.newSection}>Create new section</button>
-          <button onClick={this.addWriter}>Add a writer</button>
+          <button onClick={this.addWriter.bind(this)}>Add a writer</button>
         </div>
         <Hand words={this.state.hand || hand} selectCard={this.selectCard} selectedCards={this.state.selectedCards}/>
       </div>

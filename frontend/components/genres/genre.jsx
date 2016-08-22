@@ -28,7 +28,7 @@ class Genre extends React.Component{
 
   getGenreWords(e){
     const genreId = e.target.value;
-    if (genreId === this.state.selectedGenre.id) {
+    if (genreId == this.state.selectedGenre.id) {
       this.setState({view: "words"});
       return;
     }

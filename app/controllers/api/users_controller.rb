@@ -3,15 +3,15 @@ class Api::UsersController < ApplicationController
   def index
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
-      render json: @user
+      render 'api/users/show'
     elsif params[:email]
       @user = User.find_by(email: params[:email])
-      if @user
-        render json: @user
-      end
+      render 'api/users/show' if @user
     elsif params[:username]
       @user = User.find_by(username: params[:username])
-      render json: @user if @user
+      render 'api/users/show' if @user
+    elsif params[:search]
+      # @users = User.where("username like ?", "%#{params[:search]}%")
     else
       @users = User.all
     end
@@ -19,6 +19,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    render 'api/users/show' if @user
   end
 
   def create

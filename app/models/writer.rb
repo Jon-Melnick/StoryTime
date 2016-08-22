@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer          not null
 #  story_id   :integer          not null
+#  hand       :string           default([]), is an Array
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -1,10 +1,15 @@
+import { SET_CURRENT_USER } from '../actions/types'
 
 const defaultOpts={
     user: {
       id: null,
       name: null,
-      age: null,
     },
+    friendships:{
+      friends: null,
+      pendings: null,
+    },
+    users: {},
     fetching: false,
     fetched: false,
     error: null,
@@ -15,6 +20,12 @@ export default function reducer(state=defaultOpts, action) {
     switch (action.type) {
       case "FETCH_USER": {
         return {...state, fetching: true}
+      }
+      case SET_CURRENT_USER:{
+        return {
+          user: action.user,
+          friendships: action.friendships
+        }
       }
       case "FETCH_USER_REJECTED": {
         return {...state, fetching: false, error: action.payload}

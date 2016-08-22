@@ -9,7 +9,7 @@ export function userSignupRequest(userData) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
     return axios.post('api/users', {user: userData}).then(res =>{
-      const token = res.data.session_token;
+      const token = res.data.auth.session_token;
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(res.data));
@@ -24,10 +24,12 @@ export function userExist(data) {
   }
 }
 
-export function setCurrentUser(user) {
+export function setCurrentUser(data) {
   return {
     type: SET_CURRENT_USER,
-    user
+    auth: data.auth,
+    friendships: data.friendships,
+    user: data.user
   }
 }
 
@@ -36,7 +38,7 @@ export function getCurrentUser(token) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch=> {
     return axios.get(`api/users`, params).then(res => {
-      setAuthorizationToken(res.data.session_token);
+      setAuthorizationToken(res.data.auth.session_token);
       dispatch(setCurrentUser(res.data));
     })
   }
@@ -47,7 +49,7 @@ export function userLoginRequest(data) {
   return dispatch => {
     return axios.post(`api/session`, data).then(
       (res) => {
-        const token = res.data.session_token;
+        const token = res.data.auth.session_token;
         localStorage.setItem('jwtToken', token);
         setAuthorizationToken(token);
         dispatch(setCurrentUser(res.data));
@@ -64,6 +66,13 @@ export function logout() {
       setAuthorizationToken(false);
       dispatch(clearStores());
     })
+  }
+}
+
+export function getAuthors(data) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch=> {
+    return axios.get('api/users', {params: data})
   }
 }
 

@@ -96,6 +96,9 @@
    height: 570px;
    border: 1px solid black;
    padding: 4em;
+ }
+
+ .story-inner{
    font-size: 20px;
  }
 
@@ -154,4 +157,11 @@
 
 .offset-by-20{
   margin-left: 20px;
+}
+
+.confirm-buttons{
+  position: relative;
+  z-index: 5;
+  right: 0;
+  bottom: 5px;
 }

@@ -1,11 +1,10 @@
-const React = require('react'),
-      Profile = require('./profile'),
-      Friends = require('./friends');
-
+import React from 'react'
 import { Link } from 'react-router'
 import { getAllStoriesBy } from '../../actions/storyActions'
 import { connect } from 'react-redux'
 import Stories from './stories'
+import Friends from './friends'
+import Profile from './profile'
 import {hashHistory} from 'react-router'
 
 
@@ -19,7 +18,7 @@ class Dash extends React.Component{
 
   componentWillMount(){
     if (this.props.auth.user.id !== parseInt(this.props.routeParams.userId)) {
-      let id = currentUser.id ? currentUser.id : this.props.auth.user.id
+      let id = this.props.auth.user.id ? this.props.auth.user.id : currentUser.id
       hashHistory.push('/dashboard/' + id)
     }
     if (this.props.fetched === false) {
