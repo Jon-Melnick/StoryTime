@@ -72,7 +72,7 @@ class Friends extends React.Component{
                     <br/>
                     Email: {friend.email}
                     <br/>
-                    Coauthor on {friend.coauthors} stories
+                    Coauthor on {friend.coauthors } stories
                     <br/>
                     Total sections written: {friend.contributions}
                   </div>
