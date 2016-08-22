@@ -73,7 +73,6 @@ class Signup extends React.Component{
     let errors = this.state.errors;
     const pass2 = document.getElementById('password2')
     const btn = document.getElementById('signup-btn')
-    console.log(btn);
     if (pass2.value !== '') {
       const pass1 = document.getElementById('password1')
       if (pass2.value !== pass1.value) {
@@ -114,7 +113,6 @@ class Signup extends React.Component{
     this.props.userSignupRequest(formData).then(
       (res) =>{
         const id = this.props.auth.user.id;
-        console.log(id);
         hashHistory.push('/dashboard/' + id)},
       (err) =>this.setState({errors: err.response.data.errors})
     )

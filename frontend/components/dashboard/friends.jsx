@@ -29,19 +29,9 @@ class Friends extends React.Component{
 
   confirm(e){
     e.preventDefault();
-    e.stopPropagation();
-    e.target.className += ' disabled'
-    let container = document.createElement('div')
-    container.className = 'confirm-container'
-    let confirm = document.createElement('button')
-    confirm.textContent = 'confirm'
-    let cancel = document.createElement('button')
-    cancel.onClick = this.cancel.bind(this)
-    cancel.textContent = 'cancel'
-    container.appendChild(confirm)
-    container.appendChild(cancel)
-
-    e.target.appendChild(container)
+    let klass = e.target.className
+    klass = klass.indexOf(' active') > -1 ? klass ="list-group-item" : klass += ' active'
+    e.target.className = klass
   }
 
   sendReuest(){
@@ -49,14 +39,14 @@ class Friends extends React.Component{
 
   setUsers(){
     this.authors = map(this.state.authors, author=>{
-      return <button key={author.id}
+      return <li key={author.id}
               className='list-group-item'
               onClick={this.confirm.bind(this)}
               value={author.id}>
                   Name: {author.username}
                   <br/>
                   Email: {author.email}
-              </button>
+              </li>
     })
   }
 
