@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     resources :genres, only: [:create, :index, :show]
     resources :words, only: [:create, :show]
     resources :writers, only: [:create, :update]
+    resources :friendships, only: [:create, :update]
   end
 end

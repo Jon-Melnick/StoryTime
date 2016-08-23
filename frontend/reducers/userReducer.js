@@ -1,4 +1,5 @@
 import { SET_CURRENT_USER } from '../actions/types'
+import findIndex from 'lodash/findindex'
 
 const defaultOpts={
     user: {
@@ -25,6 +26,34 @@ export default function reducer(state=defaultOpts, action) {
         return {
           user: action.user,
           friendships: action.friendships
+        }
+      }
+      case "UPDATE_FRIENDS":{
+        let id = findIndex(state.friendships.pending, {id: action.friend.id})
+        return {
+          ...state,
+          friendships: {
+            friends: [
+              ...state.friendships.friends,
+              action.friend
+            ],
+            pending: [
+              ...state.friendships.pending.slice(0, id),
+              ...state.friendships.pending.slice(id+1)
+            ]
+          }
+        }
+      }
+      case "ADD_FRIEND":{
+        return {
+          ...state,
+          friendships: {
+            ...state.friendships,
+            friends: [
+              ...state.friendships.friends,
+              action.friend
+            ]
+          }
         }
       }
       case "FETCH_USER_REJECTED": {

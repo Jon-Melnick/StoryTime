@@ -38,3 +38,15 @@ Friendship.create!(requester_id: caicai.id, receiver_id: jon.id, status: 'friend
 
 Writer.create!(story_id: story.id, user_id: caicai.id, hand: story.generate_hand)
 Writer.create!(story_id: story.id, user_id: jon.id, hand: story.generate_hand)
+
+User.create!(username: 'kevin', email: 'kevin@fake.com', password: 'password')
+User.create!(username: 'james', email: 'james@fake.com', password: 'password')
+User.create!(username: 'merryl', email: 'merryl@fake.com', password: 'password')
+User.create!(username: 'Sam', email: 'Samfake.com', password: 'password')
+User.create!(username: 'Cole', email: 'Cole@fake.com', password: 'password')
+User.create!(username: 'smithy', email: 'smithy@fake.com', password: 'password')
+User.create!(username: 'carol', email: 'carol@fake.com', password: 'password')
+User.create!(username: 'Ben', email: 'Ben@fake.com', password: 'password')
+User.create!(username: 'Aaron', email: 'Aaron@fake.com', password: 'password')
+User.create!(username: 'SlyDog', email: 'SlyDog@fake.com', password: 'password')
+User.create!(username: 'StoryKing', email: 'StoryKing@fake.com', password: 'password')

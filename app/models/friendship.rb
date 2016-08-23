@@ -31,4 +31,17 @@ class Friendship < ActiveRecord::Base
     return :receiver if pending
   end
 
+  def friend_info
+    user = receiver
+      {
+      friendshipId: self.id,
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      storyIds: user.storyIds,
+      coauthors: user.stories.length,
+      contributions: user.sections.length,
+    }
+  end
+
 end

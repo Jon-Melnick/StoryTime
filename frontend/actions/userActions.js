@@ -17,6 +17,39 @@ export function userSignupRequest(userData) {
   }
 }
 
+export function sendRequest(id) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch=>{
+    return axios.post(`api/friendships`, {friendship: {receiver_id: id}}).then(
+      res=>dispatch(addFriend(res.data)),
+      err=>console.log(err.response)
+    )
+  }
+}
+
+export function acceptRequest(id) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch=>{
+    return axios.patch('api/friendships/' + id).then(
+      (res)=>dispatch(updateFriends(res.data))
+    )
+  }
+}
+
+export function updateFriends(data) {
+  return{
+    type: "UPDATE_FRIENDS",
+    friend: data.friend
+  }
+}
+
+export function addFriend(data) {
+  return{
+    type: "ADD_FRIEND",
+    friend: data.friend
+  }
+}
+
 export function userExist(data) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {

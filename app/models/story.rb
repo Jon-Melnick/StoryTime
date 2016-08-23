@@ -65,4 +65,8 @@ class Story < ActiveRecord::Base
     team_members.find_by(user_id: id).id
   end
 
+  def storyId
+    self.id
+  end
+
 end

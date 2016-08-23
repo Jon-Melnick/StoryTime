@@ -6,7 +6,7 @@ json.auth do
 end
 
 json.friendships do
-  json.friends @user.friends
+  json.friends @user.friendships
   json.pending @user.pending_relationships
 end
 

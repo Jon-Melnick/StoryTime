@@ -44,12 +44,18 @@ class User < ActiveRecord::Base
     class_name: 'Section' #class_name ex. (String)
 
   def pending_relationships
-    connections.where(status: 'pending').map(&:receiver)
+    connections.where(status: 'pending').map(&:friend_info)
   end
 
   def friendships
-    connections.where(status: 'friends').map(&:receiver)
+    connections.where(status: 'friends').map(&:friend_info)
   end
+
+  def storyIds
+    stories.map(&:storyId)
+  end
+
+
 
   def self.find_by_credentials(identifier, password)
     user = User.find_by(identifier)

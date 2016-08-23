@@ -3,8 +3,11 @@ class Api::FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     @friendship.requester_id = current_user.id
+    @friendship.status = 'friends'
     if @friendship.save
-      render json: @friendship
+      Friendship.create(requester_id: @friendship.receiver_id, receiver_id: current_user.id)
+      @friend = User.find_by(id: @friendship.receiver_id)
+      render 'api/friendships/show'
     else
       @errors = @friendship.errors.full_messages
       render 'api/shared/errors', status: 422
@@ -14,7 +17,8 @@ class Api::FriendshipsController < ApplicationController
   def update
     @friendship = Friendship.find(params[:id])
     if @friendship.update(status: 'friends')
-      render json: @friendship
+      @friend = User.find_by(id: @friendship.receiver_id)
+      render 'api/friendships/show'
     else
       @errors = @friendship.errors.full_messages
       render 'api/shared/errors', status: 422
@@ -24,7 +28,7 @@ class Api::FriendshipsController < ApplicationController
   private
 
   def friendship_params
-    params.require(:friendship).permit(:receiver_id)
+    params.require(:friendship).permit(:receiver_id, :status)
   end
 
 end
