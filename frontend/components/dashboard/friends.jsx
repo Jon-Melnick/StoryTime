@@ -40,11 +40,14 @@ class Friends extends React.Component{
       if ((friend.username.indexOf(this.state.search) === -1 && friend.email.indexOf(this.state.search) === -1)) {
         return;
       } else {
-        let klass = 'btn-xs pull-right'
-        if (friend.status === 'pending') {
-          klass += ' btn-warning'
+        if (friend.status === 'friends') {
+          this.status = <div className='btn-xs pull-right btn-success'>
+                          Friends
+                        </div>
         } else {
-          klass += ' btn-success'
+          this.status = <div className='btn-xs pull-right btn-warning'>
+                          Pending
+                        </div>
         }
         return <li key={friend.id}
                 className='list-group-item'>
@@ -62,9 +65,7 @@ class Friends extends React.Component{
                           onClick={this.accept.bind(this)}
                           value = {friend.friendshipId}> Accept </button>
                         :
-                        <div className={klass}>
-                          {friend.status}
-                        </div>}
+                        this.status}
                 </li>
       }
     })
