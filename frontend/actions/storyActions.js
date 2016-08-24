@@ -92,7 +92,6 @@ export function updateStories(data) {
 export function getGenres() {
   return dispatch => {
     return axios.get('api/genres').then(res =>{
-      console.log(res);
       dispatch(setGenres(res.data))
     })
   }
@@ -121,6 +120,22 @@ export function getNewCards(id, cards) {
         dispatch(setStory(res.data));
         dispatch(updateStories(res.data));
       })
+  }
+}
+
+export function markSeen(userId, sectionId) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch=>{
+    return axios.patch('api/sections/' + sectionId).then(
+      res=>dispatch(newSeen(res.data))
+    )
+  }
+}
+
+export function newSeen(data) {
+  return {
+    type: "NEW_SEEN",
+    data
   }
 }
 

@@ -3,13 +3,12 @@ const Segment = require('./segments'),
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { getStory } from '../../actions/storyActions'
-import { removeStory } from '../../actions/storyActions'
-import { createSection } from '../../actions/storyActions'
-import { getNewCards } from '../../actions/storyActions'
+import { getStory, removeStory, createSection, getNewCards, markSeen } from '../../actions/storyActions'
 import map from 'lodash/map'
 import { hashHistory } from 'react-router'
 import Authors from '../authors/authors'
+import isEmpty from 'lodash/isEmpty'
+
 
 class View extends React.Component {
   constructor(props){
@@ -20,7 +19,7 @@ class View extends React.Component {
       sectionContent: '',
       hand: null,
       view: 'story',
-      selectedCards: [null, null, null, null, null]
+      selectedCards: []
     }
     this.newSection = this.newSection.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -54,6 +53,7 @@ class View extends React.Component {
     if (this.props.story.currentSection) {
       this.setState({sectionContent: this.props.story.currentSection,
                      hand: this.props.story.hand})
+      this._changeView(0)
     }
   }
 
@@ -70,6 +70,7 @@ class View extends React.Component {
   }
 
   selectCard(e){
+    console.log(this.state);
     if (!this.state.newSection) {
       return
     }
@@ -78,6 +79,7 @@ class View extends React.Component {
     const word = e.target.textContent
     const idx = e.target.value
     let state = this.state.selectedCards
+    console.log('word ' + word + ', idx ' + idx + ', state ' + state);
     if (state[idx]) {
       state[idx] = null
     } else {
@@ -111,11 +113,18 @@ class View extends React.Component {
 
   addWriter(){
     const view = this.state.view === 'story' ? 'find authors' : 'story'
-    this.setState({view: view, newSection: false})
+    this.setState({view: view, newSection: false, selectedCards: []})
   }
 
   _changeView(idx){
-    this.setState({sectionContent: this.props.story.sections[idx]});
+    const {story, user} = this.props
+    if (isEmpty(story.sections)) {
+      return;
+    }
+    if (!story.sections[idx].seen[user.user.id.toString()]){
+      this.props.markSeen(user.user.id, story.sections[idx].id);
+    }
+    this.setState({sectionContent: story.sections[idx]});
   }
 
   onChange(e){
@@ -142,10 +151,10 @@ class View extends React.Component {
       this.redraw();
       this.props.createSection(data).then(
         ()=>{
-          this.setState({sectionContent: this.props.story.currentSection, body: ''});
+          this.setState({sectionContent: this.props.story.currentSection, body: '', selectedCards: []});
         });
     }
-    this.setState({newSection: !this.state.newSection, view: 'story'})
+    this.setState({newSection: !this.state.newSection, view: 'story', selectedCards: []})
   }
 
   getView(){
@@ -176,7 +185,6 @@ class View extends React.Component {
     const sections = story.sections
     let hand = ["", "", "", "", ""]
     const view = this.getView()
-
     return(
       <div className="story-view">
         <div className='story-container'>
@@ -220,7 +228,7 @@ class View extends React.Component {
                 selectCard={this.selectCard}
                 selectedCards={this.state.selectedCards}/>
         </div>
-        <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent}/>
+        <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent} user={this.props.user.user}/>
       </div>
     )
   }
@@ -230,7 +238,8 @@ View.propTypes = {
   getStory: React.PropTypes.func.isRequired,
   removeStory: React.PropTypes.func.isRequired,
   createSection: React.PropTypes.func.isRequired,
-  getNewCards: React.PropTypes.func.isRequired
+  getNewCards: React.PropTypes.func.isRequired,
+  markSeen: React.PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
@@ -241,4 +250,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getStory, createSection, removeStory, getNewCards })(View);
+export default connect(mapStateToProps, { getStory, createSection, removeStory, getNewCards, markSeen })(View);

@@ -4,6 +4,7 @@ class CreateSections < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.integer :story_id, null: false
       t.text :body, null: false
+      t.hstore :seen, default: {}
 
       t.timestamps null: false
     end

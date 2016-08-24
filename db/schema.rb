@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160821210207) do
+ActiveRecord::Schema.define(version: 20160824090047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "requester_id",                     null: false
@@ -45,11 +46,12 @@ ActiveRecord::Schema.define(version: 20160821210207) do
   add_index "genres", ["genre_type"], name: "index_genres_on_genre_type", using: :btree
 
   create_table "sections", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "story_id",   null: false
-    t.text     "body",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                 null: false
+    t.integer  "story_id",                null: false
+    t.text     "body",                    null: false
+    t.hstore   "seen",       default: {}
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "sections", ["story_id"], name: "index_sections_on_story_id", using: :btree

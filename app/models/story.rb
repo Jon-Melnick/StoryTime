@@ -13,10 +13,10 @@
 class Story < ActiveRecord::Base
   validates :title, :genre_id, presence: true
 
-  has_many :sections, #method_name, ends with s
-  primary_key: :id, #typically id
-  foreign_key: :story_id, #column_name_id
-  class_name: 'Section' #class_name ex. (String)
+  has_many :sections #method_name, ends with s
+  # primary_key: :id, #typically id
+  # foreign_key: :story_id, #column_name_id
+  # class_name: 'Section' #class_name ex. (String)
 
   has_many :team_members, #method_name, ends with s
     primary_key: :id, #typically id
@@ -31,6 +31,14 @@ class Story < ActiveRecord::Base
     primary_key: :genre_id, #typically id
     foreign_key: :id, #column_name_id
     class_name: 'Genre' #class_name ex. (String)
+
+  def unseen_sections(id)
+    sections.reject{|section| section.unseen(id)}.length
+  end
+
+  def ordered_sections
+    sections.order(:id)
+  end
 
   def author_names
     authors = self.authors

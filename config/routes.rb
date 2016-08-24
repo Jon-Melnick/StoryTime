@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :index, :update]
     resource :session, only: [:create, :destroy, :show]
     resources :stories, only: [:create, :show, :index]
-    resources :sections, only: [:create, :show, :index]
+    resources :sections, only: [:create, :show, :index, :update]
     resources :genres, only: [:create, :index, :show]
     resources :words, only: [:create, :show]
     resources :writers, only: [:create, :update]

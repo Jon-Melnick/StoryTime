@@ -30,7 +30,7 @@ class Stories extends React.Component{
                  className='story-list'>
                    <div>
                      <h2 className='story-title-view'>
-                       {story.title}
+                       {story.title} {story.unseen > 0 ? <small><span className='badge'>{story.unseen}</span></small> : <div></div>}
                      </h2>
                        {story.description}
                      <h6>

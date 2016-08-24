@@ -21,13 +21,6 @@ class NavigationBar extends React.Component {
     }
   }
 
-  updateMini(e){
-    let btn = document.getElementsByClassName('navbar-toggle')[0]
-    console.log(btn.ariaExpanded);
-    btn.className = 'navbar-toggle'
-    btn.setAttribute('aria-expanded', true)
-  }
-
   render() {
     const { isAuthenticated } = this.props.auth;
     const links = isAuthenticated ?
@@ -39,16 +32,6 @@ class NavigationBar extends React.Component {
         <li><a href="#" onClick={this.redirectTo} name="/signup">Sign up</a></li>
         <li><a href="#" onClick={this.redirectTo} name="/login">Login</a></li>
       </ul>;
-
-    const btn = <button type="button"
-                        className="navbar-toggle collapsed"
-                        data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                        aria-expanded="false">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
 
     return (
       <nav className="navbar navbar-default">

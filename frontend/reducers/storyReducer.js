@@ -1,3 +1,5 @@
+import findIndex from 'lodash/findIndex'
+
 const defaultOpts = {
     stories: {},
     story: {
@@ -38,7 +40,24 @@ export default function reducer(state=defaultOpts, action) {
       case "FETCH_STORY": {
         return {
           ...state,
+          stories: {},
+          fetched: false,
           story: {fetch: true, currentSection: action.data.sections[0] || {body: 'Start the story...'}, ...action.data},
+        }
+      }
+      case "NEW_SEEN":{
+        let idx = findIndex(state.story.sections, {id: action.data.section.id})
+
+        return {
+          ...state,
+          story: {
+            ...state.story,
+            sections: [
+              ...state.story.sections.slice(0, idx),
+              action.data.section,
+              ...state.story.sections.slice(idx+1)
+            ]
+          }
         }
       }
       case "NEW_AUTHOR":{

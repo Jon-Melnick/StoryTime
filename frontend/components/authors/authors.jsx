@@ -116,8 +116,6 @@ class Authors extends React.Component{
                              offset: offset,
                              limit: limit}).then(
         (res)=>{
-          console.log(offset);
-          console.log(res.data);
           this.setState({authors: authors.concat(res.data), offset: offset + limit, flagged: false})
         })
     }

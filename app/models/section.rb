@@ -17,4 +17,8 @@ class Section < ActiveRecord::Base
     primary_key: :id, #typically id
     foreign_key: :user_id, #column_name_id
     class_name: 'User' #class_name ex. (String)
+
+  def unseen(id)
+    seen[id.to_s]
+  end
 end

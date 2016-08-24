@@ -30,7 +30,7 @@ story = Story.create!(title: "CaiCaiSpoon_Still_LovesLittleSpoon", description: 
 sections = ["Once upon a time there was a somewhat beautiful princess who lived in a castle in the forest, but her heart longed for the sea. One day she was walking in the forest and met a prince.", "The princess had met many princes before; many suitors had come from far off kingdoms to win her hand. Most had been ugly, inside and out, but this prince was different from the rest. He was tall and handsome, with hair as dark as the night sky and skin as fair as the moon, and his eyes were many colored, with the green and brown of the forest, blue of the sky and flecks of the gold sunlight that filtered through the trees."]
 
 sections.each do |body|
-  Section.create!(body: body, user_id: caicai.id, story_id: story.id)
+  x = Section.create!(body: body, user_id: caicai.id, story_id: story.id, seen: {caicai.id => true})
 end
 
 Friendship.create!(requester_id: jon.id, receiver_id: caicai.id, status: 'friends')

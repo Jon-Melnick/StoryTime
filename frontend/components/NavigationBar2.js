@@ -21,14 +21,12 @@ class NavigationBar extends React.Component {
 
   updateMini(e){
     let btn = document.getElementsByClassName('navbar-toggle')[0]
-    console.log(btn.ariaExpanded);
     btn.className = 'navbar-toggle'
     btn.setAttribute('aria-expanded', true)
   }
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    console.log(isAuthenticated);
     const links = isAuthenticated ?
       <ul className="nav navbar-nav navbar-right">
         <li><a href="#" onClick={this.logout} name="/logout">Logout</a></li>
