@@ -22,29 +22,47 @@ class Stories extends React.Component{
     })
   }
 
+  getStories(){
+    this.stories = map(this.props.stories, (story)=>{
+      return <li key={story.id}
+                 value={story.id}
+                 onClick={this.onClick}
+                 className='story-list'>
+                   <div>
+                     <h2 className='story-title-view'>
+                       {story.title}
+                     </h2>
+                       {story.description}
+                     <h6>
+                       Authors: {story.authorNames.join(', ')}
+                     </h6>
+                   </div>
+                 </li>
+    })
+  }
+
   render(){
-    let stories = []
     if (!isEmpty(this.props.stories)){
-      this.props.stories.forEach((story) => {
-        let authors = ``
-        map(story.authorNames, (val)=>{
-          if (authors === '') {
-            authors += val
-          } else {
-            authors += ', ' + val
-          }
-        })
-         stories.push(<li key={story.id} value={story.id} onClick={this.onClick} className='story-list'><div><span className='story-title-view'>{story.title}</span> -- {story.description}</div><div className='author-list'>Authors: {authors}</div></li>)
-      });
+      this.getStories();
     }
     const klass = 'stories border ' + this.props.klass
     return (
       <div className={this.props.klass}>
-        <div className='page-header'><h1>Your Stories: {isEmpty(this.props.stories) ? <small> you currently have none</small> : ''}</h1></div>
-        <div className='pull-right' ><Link to="/newStory">New Story</Link></div>
+        <div className='page-header'>
+          <h1>Your Stories:
+            { isEmpty(this.props.stories)
+            ? <small> you currently have none</small>
+            : ''}
+            <div className='pull-right' >
+              <Link to="/newStory">New Story</Link>
+            </div>
+          </h1>
+        </div>
+
         <ul className='list-group'>
-        {stories}
+          {this.stories}
         </ul>
+
       </div>
     )
   }

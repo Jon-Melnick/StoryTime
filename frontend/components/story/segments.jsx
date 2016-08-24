@@ -8,10 +8,10 @@ const Segment = React.createClass({
     if (!isEmpty(this.props.sections)) {
       this.props.sections.forEach((section, id) => {
         sections.push(<li onClick={this.props.changeView.bind(this, id)}
-                          className="segment"
+                          className={this.props.section.id === section.id ? "segment selected-segment" : "segment"}
                           key={section.id}
                           value={id}>
-                            {section.body.slice(0, 20) + "..."}
+                            {section.body.length > 20 ? section.body.slice(0, 20) + "..." : section.body}
                             <h6>{section.author} -- {section.date}</h6>
                       </li>)
       })

@@ -52,7 +52,7 @@ class View extends React.Component {
 
   setThisState(){
     if (this.props.story.currentSection) {
-      this.setState({sectionContent: this.props.story.currentSection.body,
+      this.setState({sectionContent: this.props.story.currentSection,
                      hand: this.props.story.hand})
     }
   }
@@ -111,20 +111,30 @@ class View extends React.Component {
 
   addWriter(){
     const view = this.state.view === 'story' ? 'find authors' : 'story'
-    this.setState({view: view})
+    this.setState({view: view, newSection: false})
   }
 
   _changeView(idx){
-    this.setState({sectionContent: this.props.story.sections[idx].body});
+    this.setState({sectionContent: this.props.story.sections[idx]});
   }
 
   onChange(e){
     this.setState({body: e.target.value});
   }
 
+  selectedCards(){
+    let result = false;
+    this.state.selectedCards.forEach(card =>{
+      if (card) {
+        result = true;
+      }
+    })
+    return result;
+  }
+
   newSection(e){
     e.preventDefault();
-    if (this.state.newSection && this.state.body !== '') {
+    if (this.state.newSection && this.state.body !== '' && this.selectedCards()) {
       const data = {
         body: this.state.body.replace(/--/g, ""),
         story_id: parseInt(this.props.params.storyId)
@@ -132,19 +142,24 @@ class View extends React.Component {
       this.redraw();
       this.props.createSection(data).then(
         ()=>{
-          this.setState({sectionContent: this.props.story.currentSection.body});
+          this.setState({sectionContent: this.props.story.currentSection, body: ''});
         });
     }
-    this.setState({newSection: !this.state.newSection, body: ''})
+    this.setState({newSection: !this.state.newSection, view: 'story'})
   }
-
 
   getView(){
     let view;
     switch (this.state.view) {
       case 'story':
         view = <div className='story-inner'>
-          {this.state.newSection ? <textarea id='new-section-form' className='form-control' rows="12" onChange={this.onChange} value={this.state.body} /> : <div>{this.state.sectionContent}</div>}
+          {this.state.newSection ?
+            <textarea id='new-section-form'
+                      className='form-control'
+                      rows="12"
+                      onChange={this.onChange}
+                      value={this.state.body} />
+            : <div>{this.state.sectionContent.body}</div>}
         </div>
         break;
       case 'find authors':
@@ -164,13 +179,48 @@ class View extends React.Component {
 
     return(
       <div className="story-view">
-        <div id="view" className="story"> {view} </div>
-        <Segment changeView={this._changeView} sections={sections}/>
-        <div className="story-bar">
-          <button onClick={this.newSection}>Create new section</button>
-          <button onClick={this.addWriter.bind(this)}>Add a writer</button>
+        <div className='story-container'>
+          <div id="view" className="story"> {view} </div>
+            <div className="btn-group btn-group-justified story-bar"
+                 role="group"
+                 aria-label="...">
+
+               <div className="btn-group" role="group">
+                 <button className='btn btn-default'
+                         onClick={this._changeView.bind(this, (this.state.sectionContent.id - 2))}
+                         disabled={this.state.sectionContent.id === 1 ? true : false}>
+                         &laquo; Previous
+                 </button>
+               </div>
+
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this.newSection}>
+                        {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
+                </button>
+              </div>
+
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this.addWriter.bind(this)}>
+                        {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+                </button>
+
+              </div>
+
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this._changeView.bind(this, (this.state.sectionContent.id))}
+                        disabled={this.state.sectionContent.id < sections.length ? false : true}>
+                        Next &raquo;
+                </button>
+              </div>
+            </div>
+          <Hand words={this.state.hand || hand}
+                selectCard={this.selectCard}
+                selectedCards={this.state.selectedCards}/>
         </div>
-        <Hand words={this.state.hand || hand} selectCard={this.selectCard} selectedCards={this.state.selectedCards}/>
+        <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent}/>
       </div>
     )
   }

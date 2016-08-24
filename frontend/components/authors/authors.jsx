@@ -140,7 +140,6 @@ class Authors extends React.Component{
   }
 
   render(){
-    console.log(this.cached);
     if (!this.cached && this.props.friends) {
       this.setFriends();
     }
