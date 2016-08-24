@@ -26,7 +26,7 @@ class Authors extends React.Component{
   setFriends(){
     this.cached = true
     this.friends = map(this.props.friends, (friend)=>{
-      if (findIndex(this.props.story.story.authors, {id: friend.id}) >= 0) {
+      if (findIndex(this.props.story.authors, {id: friend.id}) >= 0) {
         return ;
       } else {
       return <li key={friend.id}
@@ -49,7 +49,7 @@ class Authors extends React.Component{
 
   setUsers(){
     this.authors = map(this.state.authors, author=>{
-      if (author.storyIds.indexOf(this.props.story.story.id) >= 0) {
+      if (author.storyIds.indexOf(this.props.story.info.id) >= 0) {
         return ;
       } else {
       return <li key={author.id}
@@ -79,7 +79,7 @@ class Authors extends React.Component{
     target.disabled = true;
     target.textContent = 'Request Sent'
     target.className += ' btn-success'
-    let storyId = this.props.story.story.id;
+    let storyId = this.props.story.info.id;
     this.props.sendAuthorInvite(storyId, id).then(
       (res)=>{
         parent.className += ' disabled';
@@ -183,7 +183,7 @@ function mapStateToProps(state) {
     auth: state.auth,
     user: state.user,
     friends: state.user.friendships.friends,
-    story: state.story
+    story: state.story.story
   }
 }
 
