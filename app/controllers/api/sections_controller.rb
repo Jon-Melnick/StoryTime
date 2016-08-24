@@ -22,7 +22,8 @@ class Api::SectionsController < ApplicationController
 
   def update
     @section = Section.find(params[:id])
-    @section.seen[current_user.id] = true
+    seen = @section.seen
+    seen[current_user.id] = true
     if @section.update(seen: seen)
       render 'api/sections/show'
     else
