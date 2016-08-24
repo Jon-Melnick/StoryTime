@@ -16,4 +16,5 @@ json.user do
   json.email @user.email
   json.coauthors @user.stories.length
   json.contributions @user.sections.length
+  json.storyIds @user.storyIds
 end

@@ -50,3 +50,7 @@ User.create!(username: 'Ben', email: 'Ben@fake.com', password: 'password')
 User.create!(username: 'Aaron', email: 'Aaron@fake.com', password: 'password')
 User.create!(username: 'SlyDog', email: 'SlyDog@fake.com', password: 'password')
 User.create!(username: 'StoryKing', email: 'StoryKing@fake.com', password: 'password')
+
+20.times do
+  User.create!(username: Faker::Superhero.name, email: Faker::Internet.email, password: 'password')
+end

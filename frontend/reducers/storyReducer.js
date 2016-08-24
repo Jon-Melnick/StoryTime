@@ -41,6 +41,18 @@ export default function reducer(state=defaultOpts, action) {
           story: {fetch: true, currentSection: action.data.sections[0] || {body: 'Start the story...'}, ...action.data},
         }
       }
+      case "NEW_AUTHOR":{
+        return {
+          ...state,
+          story: {
+            ...state.story,
+            authors: [
+              ...state.story.authors,
+              action.author
+            ]
+          }
+        }
+      }
       case "REMOVE_STORY":{
         return {
           ...state,

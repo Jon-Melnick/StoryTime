@@ -10,9 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+ @import "bootstrap-sprockets";
+@import "bootstrap";
 
  html, body, div, span, applet, object, iframe,
  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -84,7 +84,7 @@
 
  .segment {
    width: 180px;
-   height: 30px;
+   height: 60px;
    border: 1px solid green;
    margin: 5px 0;
    padding: 3px;
@@ -164,4 +164,16 @@
   z-index: 5;
   right: 0;
   bottom: 5px;
+}
+
+.friends-container{
+  min-height: 200px;
+  max-height: 306px;
+  overflow-y: scroll;
+}
+
+.authors-container{
+  min-height: 200px;
+  max-height: 304px;
+  overflow-y: scroll;
 }

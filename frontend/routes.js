@@ -24,7 +24,7 @@ export default (
   </Route>
 )
 
-function _ensureLoggedIn(nextState, replace) {
+export function _ensureLoggedIn(nextState, replace) {
   if (!localStorage.jwtToken) {
         replace('/login');
       }

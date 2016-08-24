@@ -12,7 +12,8 @@ class Api::UsersController < ApplicationController
       render 'api/users/show' if @user
     elsif params[:search]
       friendIds = current_user.connections.map(&:receiver_id) << current_user.id
-      @users = User.where.not(id: friendIds)
+      users = User.where("username LIKE ? OR email LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+      @users = users.where.not(id: friendIds).limit(params[:limit]).offset(params[:offset])
     else
       @users = User.all
     end

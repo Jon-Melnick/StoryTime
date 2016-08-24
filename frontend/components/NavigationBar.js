@@ -54,10 +54,19 @@ class NavigationBar extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
+            <button type="button"
+                                className="navbar-toggle collapsed"
+                                data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
+                          <span className="sr-only">Toggle navigation</span>
+                          <span className="icon-bar"></span>
+                          <span className="icon-bar"></span>
+                          <span className="icon-bar"></span>
+                        </button>
             <Link to={`/dashboard/${this.props.auth.user.id}`} className="navbar-brand">Story Time</Link>
 
           </div>
-          <div className="" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className='nav navbar-nav'>
               <li><a href='#'
                      name='/home'>home</a></li>

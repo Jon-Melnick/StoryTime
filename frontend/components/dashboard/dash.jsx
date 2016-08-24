@@ -33,9 +33,9 @@ class Dash extends React.Component{
 
 
   render(){
+    let holder = <Profile klass='col-xs-12 col-md-12'/>
     return (
       <div className='row'>
-        <Profile klass='col-xs-12 col-md-12'/>
         <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}/>
         <Friends klass='col-xs-12 col-md-4'/>
       </div>

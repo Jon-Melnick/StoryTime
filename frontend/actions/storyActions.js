@@ -25,10 +25,26 @@ export function getStory(storyId) {
   }
 }
 
+export function sendAuthorInvite(storyId, userId) {
+  axios.defaults.headers.common['x-csrf-token'] = getCSRF();
+  return dispatch=>{
+    return axios.post('api/writers', {story_id: storyId, user_id: userId}).then((res)=>{
+      dispatch(setNewAuthor(res.data))
+    })
+  }
+}
+
 export function setStory(data) {
   return {
     type: "FETCH_STORY",
     data
+  }
+}
+
+export function setNewAuthor(data) {
+  return {
+    type: "NEW_AUTHOR",
+    author: data
   }
 }
 

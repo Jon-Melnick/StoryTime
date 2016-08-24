@@ -114,8 +114,7 @@ class View extends React.Component {
     this.setState({view: view})
   }
 
-  _changeView(e){
-    let idx = e.target.value;
+  _changeView(idx){
     this.setState({sectionContent: this.props.story.sections[idx].body});
   }
 

@@ -72,7 +72,7 @@ export function getCurrentUser(token) {
   return dispatch=> {
     return axios.get(`api/users`, params).then(res => {
       setAuthorizationToken(res.data.auth.session_token);
-      dispatch(setCurrentUser(res.data));
+      dispatch(setCurrentUser(res.data))
     })
   }
 }

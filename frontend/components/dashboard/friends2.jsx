@@ -40,12 +40,6 @@ class Friends extends React.Component{
       if ((friend.username.indexOf(this.state.search) === -1 && friend.email.indexOf(this.state.search) === -1)) {
         return;
       } else {
-        let klass = 'btn-xs pull-right'
-        if (friend.status === 'pending') {
-          klass += ' btn-warning'
-        } else {
-          klass += ' btn-success'
-        }
         return <li key={friend.id}
                 className='list-group-item'>
                   <img src="http://res.cloudinary.com/arkean/image/upload/c_scale,w_75/v1468007818/llc305fxyhmea41phzne.png" className='pull-left'/>
@@ -62,7 +56,7 @@ class Friends extends React.Component{
                           onClick={this.accept.bind(this)}
                           value = {friend.friendshipId}> Accept </button>
                         :
-                        <div className={klass}>
+                        <div className='btn-xs pull-right'>
                           {friend.status}
                         </div>}
                 </li>
@@ -155,7 +149,12 @@ class Friends extends React.Component{
   render(){
     if (this.state.view !== 'add' && this.props.friends) {
       this.setFriends(this.state.view);
-      this.pending = this.props.pending.length
+      this.pending =
+      <div class="nav nav-pills pull-right" role="tablist" onClick={this.changeView.bind(this, 'pending')}>
+        <small role='presentation'>
+          pending <span class="badge">{this.props.pending.length}</span>
+      </small>
+    </div>
     }
     if (this.state.view === 'add'){
       this.setUsers();
@@ -178,31 +177,15 @@ class Friends extends React.Component{
       <div className={klass}>
 
         <div>
-          <ul className="nav nav-tabs" role="tablist">
-            <li role="presentation" className="active">
-              <a href=''
-                 aria-controls="home"
-                 role="tab"
-                 data-toggle="tab"
-                 onClick={this.changeView.bind(this, 'friends')}>
-                  Friends</a></li>
-            <li role="presentation">
-              <a href=''
-                 aria-controls="profile"
-                 role="tab"
-                 data-toggle="tab"
-                 onClick={this.changeView.bind(this, 'pending')}>
-                  Pending <span class="badge">{this.pending}</span></a></li>
-            <li role="presentation">
-              <a href=''
-                 aria-controls="messages"
-                 role="tab"
-                 data-toggle="tab"
-                 onClick={this.changeView.bind(this, 'add')}>
-                  Find</a></li>
-          </ul>
-        </div>
 
+  <ul className="nav nav-tabs" role="tablist">
+    <li role="presentation" className="active"><a aria-controls="home" role="tab" data-toggle="tab">Friends</a></li>
+    <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab"><small role='presentation'>
+      pending <span class="badge">{this.props.pending.length}</span>
+  </small></a></li>
+    <li role="presentation"><a aria-controls="messages" role="tab" data-toggle="tab">Find</a></li>
+  </ul>
+</div>
         <div >
           <input type='text'
                  className='form-control'

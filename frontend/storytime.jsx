@@ -10,12 +10,13 @@ import Story from './components/story/view'
 import Signup from './components/signup'
 import setAuthorizationToken from './utils/setAuthorizationToken'
 import { getCurrentUser } from './actions/userActions'
+import { _ensureLoggedIn } from './routes'
 
 import routes from './routes'
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(getCurrentUser(localStorage.jwtToken))
+  store.dispatch(getCurrentUser(localStorage.jwtToken));
 }
 
 document.addEventListener('DOMContentLoaded', ()=> {

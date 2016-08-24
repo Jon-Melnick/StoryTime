@@ -34,6 +34,11 @@ class User < ActiveRecord::Base
     foreign_key: :requester_id, #column_name_id
     class_name: 'Friendship' #class_name ex. (String)
 
+  has_many :pending_connections, #method_name, ends with s
+    primary_key: :id, #typically id
+    foreign_key: :receiver_id, #column_name_id
+    class_name: 'Friendship' #class_name ex. (String)
+
   has_many :friends, #method name
     through: :connections,
     source: :receiver
@@ -47,8 +52,16 @@ class User < ActiveRecord::Base
     connections.where(status: 'pending').map(&:friend_info)
   end
 
-  def friendships
+  def pending_ids
+    connections.where(status: 'pending').map(&:receiver_id)
+  end
+
+  def friendships_old
     connections.where(status: 'friends').map(&:friend_info)
+  end
+
+  def friendships
+    pending_connections.where.not(requester_id: pending_ids).map(&:requester_info)
   end
 
   def storyIds
