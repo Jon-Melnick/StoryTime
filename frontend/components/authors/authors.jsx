@@ -3,7 +3,7 @@ import map from 'lodash/map'
 import { connect } from 'react-redux'
 import { getAuthors } from '../../actions/userActions'
 import { sendAuthorInvite } from '../../actions/storyActions'
-import findIndex from 'lodash/findindex'
+import findIndex from 'lodash/findIndex'
 
 
 
