@@ -11,7 +11,7 @@ class Api::SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
     @section.user_id = current_user.id
-    @section.seen = {current_user.id => true}
+    @section.seen[current_user.id] = true
     if @section.save
       render json: @section
     else
@@ -22,8 +22,7 @@ class Api::SectionsController < ApplicationController
 
   def update
     @section = Section.find(params[:id])
-    seen = @section.seen
-    seen[current_user.id] = true
+    @section.seen[current_user.id] = true
     if @section.update(seen: seen)
       render 'api/sections/show'
     else
