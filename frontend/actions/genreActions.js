@@ -1,18 +1,13 @@
 import axios from 'axios';
 
+import { FETCH_GENRES, FETCH_WORDS, CLEAR } from './types'
+
 
 export function getGenres() {
   return dispatch => {
     return axios.get(`api/genres`).then(res => {
       dispatch(setGenres(res.data))
     })
-  }
-}
-
-export function setGenres(data) {
-  return {
-    type: "FETCH_GENRES",
-    data
   }
 }
 
@@ -33,16 +28,17 @@ export function addWord(id, word) {
   }
 }
 
-export function setWords(data) {
+export function setGenres(data) {
   return {
-    type: "FETCH_WORDS",
+    type: FETCH_GENRES,
     data
   }
 }
 
-export function removeStory() {
+export function setWords(data) {
   return {
-    type: "REMOVE_STORY"
+    type: FETCH_WORDS,
+    data
   }
 }
 

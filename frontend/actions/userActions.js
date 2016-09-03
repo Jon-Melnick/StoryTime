@@ -1,7 +1,14 @@
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken'
 
-import { SET_CURRENT_USER } from './types'
+import { SET_CURRENT_USER,
+         FETCH_USER_FULFILLED,
+         FETCH_USER,
+         SET_USER_NAME,
+         SET_USER_AGE,
+         ADD_FRIEND,
+         UPDATE_FRIENDS,
+         CLEAR } from './types'
 
 
 
@@ -36,33 +43,10 @@ export function acceptRequest(id) {
   }
 }
 
-export function updateFriends(data) {
-  return{
-    type: "UPDATE_FRIENDS",
-    friend: data.friend
-  }
-}
-
-export function addFriend(data) {
-  return{
-    type: "ADD_FRIEND",
-    friend: data.friend
-  }
-}
-
 export function userExist(data) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
     return axios.get(`api/users`, {params: data})
-  }
-}
-
-export function setCurrentUser(data) {
-  return {
-    type: SET_CURRENT_USER,
-    auth: data.auth,
-    friendships: data.friendships,
-    user: data.user
   }
 }
 
@@ -109,16 +93,41 @@ export function getAuthors(data) {
   }
 }
 
+export function updateFriends(data) {
+  return{
+    type: UPDATE_FRIENDS,
+    friend: data.friend
+  }
+}
+
+export function addFriend(data) {
+  return{
+    type: ADD_FRIEND,
+    friend: data.friend
+  }
+}
+
+
+export function setCurrentUser(data) {
+  return {
+    type: SET_CURRENT_USER,
+    auth: data.auth,
+    friendships: data.friendships,
+    user: data.user
+  }
+}
+
+
 export function clearStores() {
   return {
-    type: "CLEAR"
+    type: CLEAR
   }
 }
 
 
 export function fetchUser() {
   return {
-    type: "FETCH_USER_FULFILLED",
+    type: FETCH_USER_FULFILLED,
     payload: {
       name: "Will",
       age: 35,
@@ -128,14 +137,14 @@ export function fetchUser() {
 
 export function setUserName(name) {
   return {
-    type: 'SET_USER_NAME',
+    type: SET_USER_NAME,
     payload: name,
   }
 }
 
 export function setUserAge(age) {
   return {
-    type: 'SET_USER_AGE',
+    type: SET_USER_AGE,
     payload: age,
   }
 }

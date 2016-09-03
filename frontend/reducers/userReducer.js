@@ -1,7 +1,14 @@
-import { SET_CURRENT_USER } from '../actions/types'
+import { SET_CURRENT_USER,
+         FETCH_USER_FULFILLED,
+         FETCH_USER,
+         SET_USER_NAME,
+         SET_USER_AGE,
+         ADD_FRIEND,
+         UPDATE_FRIENDS,
+         CLEAR } from '../actions/types'
 import findIndex from 'lodash/findIndex'
 
-const defaultOpts={
+const initialState={
     user: {
       id: null,
       name: null,
@@ -16,10 +23,10 @@ const defaultOpts={
     error: null,
   }
 
-export default function reducer(state=defaultOpts, action) {
+export default function reducer(state=initialState, action) {
 
     switch (action.type) {
-      case "FETCH_USER": {
+      case FETCH_USER: {
         return {...state, fetching: true}
       }
       case SET_CURRENT_USER:{
@@ -28,7 +35,7 @@ export default function reducer(state=defaultOpts, action) {
           friendships: action.friendships
         }
       }
-      case "UPDATE_FRIENDS":{
+      case UPDATE_FRIENDS:{
         let id = findIndex(state.friendships.pending, {id: action.friend.id})
         return {
           ...state,
@@ -44,7 +51,7 @@ export default function reducer(state=defaultOpts, action) {
           }
         }
       }
-      case "ADD_FRIEND":{
+      case ADD_FRIEND:{
         return {
           ...state,
           friendships: {
@@ -59,7 +66,7 @@ export default function reducer(state=defaultOpts, action) {
       case "FETCH_USER_REJECTED": {
         return {...state, fetching: false, error: action.payload}
       }
-      case "FETCH_USER_FULFILLED": {
+      case FETCH_USER_FULFILLED: {
         return {
           ...state,
           fetching: false,
@@ -67,21 +74,21 @@ export default function reducer(state=defaultOpts, action) {
           user: action.payload,
         }
       }
-      case "SET_USER_NAME": {
+      case SET_USER_NAME: {
         return {
           ...state,
           user: {...state.user, name: action.payload}
         }
       }
-      case "SET_USER_AGE": {
+      case SET_USER_AGE: {
         return {
           ...state,
           user: {...state.user, age: action.payload}
         }
       }
-      case "CLEAR":{
+      case CLEAR:{
         return{
-          ...defaultOpts
+          ...initialState
         }
       }
   }

@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+import { CLEAR,
+         FETCH_STORIES,
+         FETCH_STORY,
+         FETCH_GENRE,
+         REMOVE_STORY,
+         UPDATE_STORIES,
+         UPDATE_STORY_SECTIONS,
+         SET_CURRENT_SECTION,
+         NEW_SEEN,
+         NEW_AUTHOR } from './types'
 
 export function getAllStoriesBy(data){
   return dispatch => {
@@ -10,12 +20,6 @@ export function getAllStoriesBy(data){
   }
 }
 
-export function setYourStories(data) {
-  return {
-    type: "FETCH_STORIES",
-    data
-  }
-}
 
 export function getStory(storyId) {
   return dispatch => {
@@ -33,28 +37,6 @@ export function sendAuthorInvite(storyId, userId) {
     })
   }
 }
-
-export function setStory(data) {
-  return {
-    type: "FETCH_STORY",
-    data
-  }
-}
-
-export function setNewAuthor(data) {
-  return {
-    type: "NEW_AUTHOR",
-    author: data
-  }
-}
-
-export function removeStory() {
-  return {
-    type: "REMOVE_STORY"
-  }
-}
-
-
 
 export function createStory(data) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
@@ -75,40 +57,11 @@ export function createSection(data) {
   }
 }
 
-export function addSection(data) {
-  return {
-    type: "UPDATE_STORY_SECTIONS",
-    data
-  }
-}
-
-export function updateStories(data) {
-  return {
-    type: "UPDATE_STORIES",
-    data
-  }
-}
-
 export function getGenres() {
   return dispatch => {
     return axios.get('api/genres').then(res =>{
       dispatch(setGenres(res.data))
     })
-  }
-}
-
-export function setGenres(data) {
-  return {
-    type: "FETCH_GENRE",
-    data
-  }
-}
-
-
-export function setCurrentSection(data) {
-  return {
-    type: "SET_CURRENT_SECTION",
-    data
   }
 }
 
@@ -132,9 +85,64 @@ export function markSeen(userId, sectionId) {
   }
 }
 
+export function setStory(data) {
+  return {
+    type: FETCH_STORY,
+    data
+  }
+}
+
+export function setYourStories(data) {
+  return {
+    type: FETCH_STORIES,
+    data
+  }
+}
+
+export function setNewAuthor(data) {
+  return {
+    type: NEW_AUTHOR,
+    author: data
+  }
+}
+
+export function removeStory() {
+  return {
+    type: REMOVE_STORY
+  }
+}
+
+export function addSection(data) {
+  return {
+    type: UPDATE_STORY_SECTIONS,
+    data
+  }
+}
+
+export function updateStories(data) {
+  return {
+    type: UPDATE_STORIES,
+    data
+  }
+}
+
+export function setGenres(data) {
+  return {
+    type: FETCH_GENRE,
+    data
+  }
+}
+
+export function setCurrentSection(data) {
+  return {
+    type: SET_CURRENT_SECTION,
+    data
+  }
+}
+
 export function newSeen(data) {
   return {
-    type: "NEW_SEEN",
+    type: NEW_SEEN,
     data
   }
 }

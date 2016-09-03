@@ -1,27 +1,29 @@
+import { FETCH_GENRES, FETCH_WORDS, CLEAR } from '../actions/types'
 
-const defaultOpts={
+
+const initialState={
     genres: [],
     genre: [],
   }
 
-export default function reducer(state=defaultOpts, action) {
+export default function reducer(state=initialState, action) {
 
     switch (action.type) {
-      case "FETCH_GENRES": {
+      case FETCH_GENRES: {
         return {
           genres: {...action.data},
           genre: {...state.genre}
         }
       }
-      case "FETCH_WORDS":{
+      case FETCH_WORDS:{
         return {
           ...state,
           genre: {...action.data}
         }
       }
-      case "CLEAR":{
+      case CLEAR:{
         return{
-          ...defaultOpts
+          ...initialState
         }
       }
   }

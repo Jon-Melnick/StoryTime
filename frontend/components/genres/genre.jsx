@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import map from 'lodash/map'
 import { getGenres, getWords, addWord } from '../../actions/genreActions'
+import {hashHistory} from 'react-router'
 
 
 class Genre extends React.Component{
@@ -49,6 +50,12 @@ class Genre extends React.Component{
   }
 
   onSubmit(e){
+    if (!this.props.auth.user.id) {
+      const errors = {}
+      errors['invalid word'] = "You must be signed in to add words, thanks."
+      this.setState({errors: errors})
+      return ;
+    }
     e.preventDefault();
     const validWord = this.validWord(this.state.search.toUpperCase())
     if (!validWord) {
@@ -147,7 +154,8 @@ Genre.propTypes = {
 
 function mapStateToProps(state) {
   return{
-    genres: state.genres
+    genres: state.genres,
+    auth: state.auth
   }
 }
 

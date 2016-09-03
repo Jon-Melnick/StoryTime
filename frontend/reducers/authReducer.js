@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actions/types'
+import { SET_CURRENT_USER, CLEAR } from '../actions/types'
 import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
@@ -14,7 +14,7 @@ export default (state = initialState, action = {}) => {
         user: action.auth
       }
     }
-    case "CLEAR":{
+    case CLEAR:{
       return{
         ...initialState
       }

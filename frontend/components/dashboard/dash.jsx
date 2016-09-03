@@ -16,8 +16,12 @@ class Dash extends React.Component{
     this.onClick = this.onClick.bind(this);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     if (this.props.auth.user.id !== parseInt(this.props.routeParams.userId)) {
+      if (!currentUser) {
+        hashHistory.push('/login');
+        return ;
+      }
       let id = this.props.auth.user.id ? this.props.auth.user.id : currentUser.id
       hashHistory.push('/dashboard/' + id)
     }

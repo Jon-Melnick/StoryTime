@@ -6,11 +6,18 @@ import { hashHistory } from 'react-router'
 
 class NavigationBar extends React.Component {
 
-
+  componentDidMount(){
+    if (!currentUser) {
+      hashHistory.push('/login');
+      return ;
+    }
+  }
+  
   logout(e){
     this.props.logout();
     hashHistory.push('/login')
   }
+
 
   redirectTo(e){
     e.preventDefault();

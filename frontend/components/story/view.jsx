@@ -70,7 +70,6 @@ class View extends React.Component {
   }
 
   selectCard(e){
-    console.log(this.state);
     if (!this.state.newSection) {
       return
     }
@@ -79,7 +78,6 @@ class View extends React.Component {
     const word = e.target.textContent
     const idx = e.target.value
     let state = this.state.selectedCards
-    console.log('word ' + word + ', idx ' + idx + ', state ' + state);
     if (state[idx]) {
       state[idx] = null
     } else {

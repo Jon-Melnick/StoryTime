@@ -23,8 +23,12 @@ class Writer < ActiveRecord::Base
 
   def redraw(cards)
     genre_words = {}
-    Word.where(genre_id: JSON.parse(self.hand[0])['genre_id']).each{|word| genre_words[word.id] = word}
-    gen_len = genre_words.length
+    genre_ids = []
+    Word.where(genre_id: JSON.parse(self.hand[0])['genre_id']).each do |word|
+      genre_ids.push(word.id)
+      genre_words[word.id] = word
+    end
+    gen_len = genre_ids.length
 
     hand = self.hand
       .map{|card| JSON.parse(card)['id']}
@@ -32,12 +36,12 @@ class Writer < ActiveRecord::Base
 
     until hand.length == 5
       idx = rand(gen_len)
-      if !hand.include?(idx)
-        hand.push(idx)
+      if !hand.include?(genre_ids[idx])
+        hand.push(genre_ids[idx])
       end
     end
 
-    hand.map{|idx| genre_words[idx].to_json}
+    hand.map{|id| genre_words[id].to_json}
   end
 
 end

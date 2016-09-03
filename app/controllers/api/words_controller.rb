@@ -6,6 +6,7 @@ class Api::WordsController < ApplicationController
 
   def create
     @word = Word.new(word_params)
+    @word.word = @word.word.split.each{|w| w[0] = w[0].upcase}.join(' ')
     if @word.save
       @genre = Genre.find(params[:word][:genre_id])
       render 'api/genres/show'

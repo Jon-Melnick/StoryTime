@@ -14,10 +14,12 @@ fantasy = Genre.create!(genre_type: 'Fantasy')
 scifi = Genre.create!(genre_type: "SciFi")
 
 fantasy_words.each do |word|
+  word = word.split.each{|w| w[0] = w[0].upcase}.join(' ')
   Word.create!(word: word, genre_id: fantasy.id)
 end
 
 scifi_words.each do |word|
+  word = word.split.each{|w| w[0] = w[0].upcase}.join(' ')
   Word.create!(word: word, genre_id: scifi.id)
 end
 
