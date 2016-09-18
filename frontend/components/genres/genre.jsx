@@ -102,17 +102,19 @@ class Genre extends React.Component{
         if (search !== '' && (word.word.toUpperCase().indexOf(search) < 0)) {
           return;
         }
-          return <li className='col-md-3 col-sm-4' key={word.id} value={word.id}>{word.word}</li>
+          return <li className='col-md-3 col-sm-4 col-xs-6' key={word.id} value={word.id}>{word.word}</li>
         })
     }
 
     if (this.state.view === 'words') {
       header = <h1 className='page-header'>
                 { this.state.selectedGenre.genre_type }
+                <a href="#">
                 <small className='offset-by-20'
                        onClick={this.setView.bind(this)}>
                   go back
                 </small>
+               </a>
                </h1>
 
        search = <div className="input-group">

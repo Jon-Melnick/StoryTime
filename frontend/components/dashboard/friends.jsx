@@ -36,6 +36,7 @@ class Friends extends React.Component{
 
   setFriends(status){
     let friends = status === 'friends' ? this.props.friends : this.props.pending
+
     this.friendsList = map(friends, (friend)=>{
       if ((friend.username.indexOf(this.state.search) === -1 && friend.email.indexOf(this.state.search) === -1)) {
         return;
@@ -63,7 +64,7 @@ class Friends extends React.Component{
 
                   {this.state.view === 'pending' ? <button className='btn btn-success btn-xs pull-right'
                           onClick={this.accept.bind(this)}
-                          value = {friend.friendshipId}> Accept </button>
+                          value = {friend.friendshipId}> Accept ? </button>
                         :
                         this.status}
                 </li>

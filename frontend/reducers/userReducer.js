@@ -42,7 +42,7 @@ export default function reducer(state=initialState, action) {
           friendships: {
             friends: [
               ...state.friendships.friends,
-              action.friend
+              action.friendship
             ],
             pending: [
               ...state.friendships.pending.slice(0, id),

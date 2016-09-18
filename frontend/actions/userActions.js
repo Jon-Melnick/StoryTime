@@ -96,7 +96,8 @@ export function getAuthors(data) {
 export function updateFriends(data) {
   return{
     type: UPDATE_FRIENDS,
-    friend: data.friend
+    friend: data.friend,
+    friendship: data.friendship
   }
 }
 

@@ -6,3 +6,5 @@ json.friend do
   json.contributions @friend.sections.length
   json.storyIds @friend.storyIds
 end
+
+json.friendship @friendship.friend_info

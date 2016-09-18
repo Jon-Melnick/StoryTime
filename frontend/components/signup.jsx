@@ -57,7 +57,7 @@ class Signup extends React.Component{
     } else {
       errors['password1'] = ''
     }
-    this.setState(errors);
+    this.setState({errors: errors});
     this.confirmPassword();
   }
 
@@ -75,7 +75,8 @@ class Signup extends React.Component{
     } else {
       errors['password2'] = '';
     }
-    this.setState(errors);
+  console.log(this.state);
+    this.setState({errors: errors});
   }
 
   validateForm(){
