@@ -26,7 +26,9 @@ export const ADD_FRIEND = "ADD_FRIEND";
 export const FETCH_GENRES = "FETCH_GENRES";
 export const FETCH_WORDS = "FETCH_WORDS";
 
-
+// Fetching
+export const FETCHING = "FETCHING";
+export const FETCHED = "FETCHED";
 
 // For clearing any store
 

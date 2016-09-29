@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
       return ;
     }
   }
-  
+
   logout(e){
     this.props.logout();
     hashHistory.push('/login')
@@ -30,6 +30,7 @@ class NavigationBar extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+    console.log(this.props.auth);
     const links = isAuthenticated ?
       <ul className="nav navbar-nav navbar-right">
         <li><a href="#" onClick={this.redirectTo.bind(this)} name="/logout">Logout</a></li>

@@ -40,7 +40,8 @@ class Genre extends React.Component{
       (err)=>{console.log(err.response);})
   }
 
-  setView(){
+  setView(e){
+    e.preventDefault();
     this.setState({view: 'genre', search: '', success: {}, errors: {}})
   }
 
@@ -109,12 +110,12 @@ class Genre extends React.Component{
     if (this.state.view === 'words') {
       header = <h1 className='page-header'>
                 { this.state.selectedGenre.genre_type }
-                <a href="#">
+                <a href=''>
                 <small className='offset-by-20'
                        onClick={this.setView.bind(this)}>
                   go back
                 </small>
-               </a>
+              </a>
                </h1>
 
        search = <div className="input-group">
