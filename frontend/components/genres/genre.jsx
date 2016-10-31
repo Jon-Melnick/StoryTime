@@ -20,15 +20,19 @@ class Genre extends React.Component{
   }
 
   componentDidMount(){
-    this.props.getGenres().then(
-      (res)=>{
-        this.setState({genres: this.props.genres.genres})
-        }
-    )
+    if (this.props.genres.fetched){
+      this.setState({genres: this.props.genres.genres})
+    } else {
+      this.props.getGenres().then(
+        (res)=>{
+          this.setState({genres: this.props.genres.genres})
+          }
+      )
+    }
   }
 
   getGenreWords(e){
-    const genreId = e.target.value;
+    const genreId = e;
     if (genreId == this.state.selectedGenre.id) {
       this.setState({view: "words"});
       return;
@@ -84,16 +88,33 @@ class Genre extends React.Component{
     return true;
   }
 
+  mouseOver(e){
+    console.log(e);
+  }
+
   render(){
     let genres, words, search;
     let header = <h1 className='page-header'> Genres </h1>
+
     if (this.state.genres !== '') {
       genres = map(this.state.genres, (gen) =>{
-        return <button key={gen.id}
-                   value={gen.id}
-                   onClick={this.getGenreWords.bind(this)}
-                   className='list-group-item'>
-               {gen.genre}<span className='badge'>{`${gen.total_words} words`} </span></button>
+        let style = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/c_crop,g_south,x_0,y_0/v1477366373/796c007d80f0ba48a2fbf37d96c046a1_nz9wk7.jpg)', backgroundPosition: 'center',
+        backgroundSize: 'cover'}
+        if (gen.id == 2) style.backgroundImage = 'url(http://res.cloudinary.com/arkean/image/upload/v1477368963/copy-banner-1200-x-500_rrfoea.jpg)'
+        let divKey = 'div' + gen.id
+        return <div key={divKey}
+                    className='col-xs-12 col-md-6'>
+            <button key={gen.id}
+                    style={style}
+                    value={gen.id}
+                    onClick={this.getGenreWords.bind(this, gen.id)}
+                    className='list-group-item lgi'>
+                    <h1 className='white' value={gen.id}>{gen.genre}</h1>
+              <span className='badge'>
+                {`${gen.total_words} words`}
+              </span>
+            </button>
+          </div>
       })
     }
 

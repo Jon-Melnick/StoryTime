@@ -183,8 +183,10 @@ class View extends React.Component {
     const sections = story.sections
     let hand = ["", "", "", "", ""]
     const view = this.getView()
+    let background = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/v1476824784/starscape_2_by_abluescarab-d32goh7_okkysu.png)'}
+
     return(
-      <div className="story-view">
+      <div className="story-view" style={background}>
         <div className='story-container'>
           <div id="view" className="story"> {view} </div>
             <div className="btn-group btn-group-justified story-bar"

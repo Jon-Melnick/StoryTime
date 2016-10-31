@@ -9,10 +9,12 @@ import NewStory from './components/newStory/newStory'
 import Dash from './components/dashboard/dash'
 import Genre from './components/genres/genre'
 import Authors from './components/authors/authors'
+import Home from './components/home'
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={ Dash } onEnter={ _ensureLoggedIn }/>
+    <IndexRoute component={Home}/>
+    <Route path="home" component={Home} />
     <Route path="story/:storyId" component={Story}/>
     <Route path="signup" component={Signup} />
     <Route path="login" component={Login} />
@@ -23,6 +25,10 @@ export default (
 
   </Route>
 )
+
+export function holder(){
+  onEnter={ _ensureLoggedIn }
+}
 
 export function _ensureLoggedIn(nextState, replace) {
   if (!localStorage.jwtToken) {

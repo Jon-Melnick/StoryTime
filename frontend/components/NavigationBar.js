@@ -8,7 +8,7 @@ class NavigationBar extends React.Component {
 
   componentDidMount(){
     if (!currentUser) {
-      hashHistory.push('/login');
+      hashHistory.push('/home');
       return ;
     }
   }
@@ -30,7 +30,6 @@ class NavigationBar extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    console.log(this.props.auth);
     const links = isAuthenticated ?
       <ul className="nav navbar-nav navbar-right">
         <li><a href="#" onClick={this.redirectTo.bind(this)} name="/logout">Logout</a></li>
@@ -54,14 +53,15 @@ class NavigationBar extends React.Component {
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                         </button>
-            <Link to={`/dashboard/${this.props.auth.user.id}`} className="navbar-brand">Story Time</Link>
+            <Link to={`/home`} className="navbar-brand">Story Time</Link>
 
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className='nav navbar-nav'>
-              <li><a href='#'
-                     name='/home'>home</a></li>
-              <li><a href='#'
+              <li className='hidden'><a href='#'
+                      name='/home'
+                      onClick={this.redirectTo}>home</a></li>
+              <li className={isAuthenticated ? '' : 'hidden'}><a href='#'
                      name={`/dashboard/${this.props.auth.user.id}`}
                      onClick={this.redirectTo}>dashboard</a></li>
               <li><a href='#'

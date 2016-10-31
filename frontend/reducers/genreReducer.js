@@ -27,13 +27,17 @@ export default function reducer(state=initialState, action) {
       case FETCH_GENRES: {
         return {
           genres: {...action.data},
-          genre: {...state.genre}
+          genre: {...state.genre},
+          fetching: false,
+          fetched: true
         }
       }
       case FETCH_WORDS:{
         return {
           ...state,
-          genre: {...action.data}
+          genre: {...action.data},
+          fetching: false,
+          fetched: true
         }
       }
       case CLEAR:{
