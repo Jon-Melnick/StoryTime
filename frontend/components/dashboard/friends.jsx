@@ -42,31 +42,39 @@ class Friends extends React.Component{
         return;
       } else {
         if (friend.status === 'friends') {
-          this.status = <div className='btn-xs pull-right btn-success'>
+          this.status = <div className='btn-xs btn-success pull-left'>
                           Friends
                         </div>
         } else {
-          this.status = <div className='btn-xs pull-right btn-warning'>
+          this.status = <div className='btn-xs btn-warning pull-left'>
                           Pending
                         </div>
         }
         return <li key={friend.id}
-                className='list-group-item'>
-                  <img src="http://res.cloudinary.com/arkean/image/upload/c_scale,w_75/v1468007818/llc305fxyhmea41phzne.png" className='pull-left'/>
+                   className='list-group-item'>
 
-                    Name: {friend.username}
-                    <br/>
-                    Email: {friend.email}
+                  <div className='pull-left'>
+                    <img className=''
+                         src="http://res.cloudinary.com/arkean/image/upload/c_scale,w_90/v1468007818/llc305fxyhmea41phzne.png"/>
+                  </div>
+
+                  <div className='height-80'>
+                    {friend.username}
                     <br/>
                     Coauthor on {friend.coauthors} {friend.coauthors == 1 ? 'story' : 'stories'}
                     <br/>
                     Total sections written: {friend.contributions}
+                    <br/>
+                    {this.state.view === 'pending' ?
+                      <button className='btn btn-warning btn-xs'
+                              onClick={this.accept.bind(this)}
+                              value = {friend.friendshipId}> Accept ? </button>
+                      :
+                      this.status
+                    }
 
-                  {this.state.view === 'pending' ? <button className='btn btn-success btn-xs pull-right'
-                          onClick={this.accept.bind(this)}
-                          value = {friend.friendshipId}> Accept ? </button>
-                        :
-                        this.status}
+                  </div>
+
                 </li>
       }
     })
@@ -80,9 +88,7 @@ class Friends extends React.Component{
       return <li key={author.id}
               className='list-group-item'
               value={author.id}>
-                  Name: {author.username}
-                  <br/>
-                  Email: {author.email}
+                  {author.username}
                   <button className='btn btn-default btn-xs pull-right'
                           onClick={this.requestFriendship.bind(this)}
                           value={author.id}>Add Friend</button>

@@ -53,7 +53,7 @@ class NavigationBar extends React.Component {
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                         </button>
-            <Link to={`/home`} className="navbar-brand">Story Time</Link>
+            <Link to={`/home`} className="navbar-brand">Epic Story Time</Link>
 
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

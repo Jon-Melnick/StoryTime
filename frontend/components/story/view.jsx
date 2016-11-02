@@ -189,7 +189,7 @@ class View extends React.Component {
     const view = this.getView()
     let background = {}
     if (story.info){
-      background = {backgroundImage: story.info.genre.genre_background_url}
+      background = {backgroundImage: story.info.genre.genre_background_url, backgroundPosition: 'center', backgroundSize: 'cover'}
     }
 
     return (
