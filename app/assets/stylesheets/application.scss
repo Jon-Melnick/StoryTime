@@ -42,6 +42,9 @@
  }
  body {
  	line-height: 1;
+  // background-image: url(https://writerreese.files.wordpress.com/2012/01/bookshelf.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
  }
  ol, ul {
  	list-style: none;
@@ -66,13 +69,15 @@
 
  .story-view {
    margin: 0 auto;
+   margin-top: 20px;
    width: 1010px;
-   height: 700px;
+   height: 678px;
+   background-color: rgba(255, 255, 255, 0.3);
  }
 
  .segments {
    float: right;
-   height: 675px;
+   height: 679px;
    width: 200px;
    border: 1px solid black;
    display: flex;
@@ -104,6 +109,10 @@
    height: 570px;
    border: 1px solid black;
    padding: 4em;
+ }
+
+ .story2 {
+   height: 570px;
  }
 
  .story-container {
@@ -193,6 +202,13 @@
 
 
 // more css, bootstrap fixes
+.navbar{
+  margin-bottom: 0 !important;
+}
+
+.top-pad{
+  padding-top: 20px;
+}
 
 .lgi{
   min-height: 100px;
@@ -202,4 +218,8 @@
 .white{
     color: white;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000
+}
+
+.black {
+  color: black;
 }

@@ -19,7 +19,8 @@ class View extends React.Component {
       sectionContent: '',
       hand: null,
       view: 'story',
-      selectedCards: []
+      selectedCards: [],
+      errors: {}
     }
     this.newSection = this.newSection.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -141,6 +142,7 @@ class View extends React.Component {
 
   newSection(e){
     e.preventDefault();
+    let errors = this.state.errors;
     if (this.state.newSection && this.state.body !== '' && this.selectedCards()) {
       const data = {
         body: this.state.body.replace(/--/g, ""),
@@ -151,8 +153,10 @@ class View extends React.Component {
         ()=>{
           this.setState({sectionContent: this.props.story.currentSection, body: '', selectedCards: []});
         });
+    } else {
+      errors['section'] = 'You did not select any cards.'
     }
-    this.setState({newSection: !this.state.newSection, view: 'story', selectedCards: []})
+    this.setState({newSection: !this.state.newSection, view: 'story', selectedCards: [], errors: errors})
   }
 
   getView(){
@@ -166,7 +170,7 @@ class View extends React.Component {
                       rows="12"
                       onChange={this.onChange}
                       value={this.state.body} />
-            : <div>{this.state.sectionContent.body}</div>}
+                    : <div className='black'>{this.state.sectionContent.body}</div>}
         </div>
         break;
       case 'find authors':
@@ -183,54 +187,62 @@ class View extends React.Component {
     const sections = story.sections
     let hand = ["", "", "", "", ""]
     const view = this.getView()
-    let background = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/v1476824784/starscape_2_by_abluescarab-d32goh7_okkysu.png)'}
+    let background = {}
+    if (story.info){
+      background = {backgroundImage: story.info.genre.genre_background_url}
+    }
 
-    return(
-      <div className="story-view" style={background}>
-        <div className='story-container'>
-          <div id="view" className="story"> {view} </div>
-            <div className="btn-group btn-group-justified story-bar"
-                 role="group"
-                 aria-label="...">
+    return (
+      <div style={background}>
+        <div className='container'>
+          <div className="story-view">
+            <div className='story-container'>
+              <div id="view" className="story"> {view} </div>
+                <div className="btn-group btn-group-justified story-bar"
+                     role="group"
+                     aria-label="...">
 
-               <div className="btn-group" role="group">
-                 <button className='btn btn-default'
-                         onClick={this._changeView.bind(this, (this.state.sectionContent.id - 2))}
-                         disabled={this.state.sectionContent.id === 1 ? true : false}>
-                         &laquo; Previous
-                 </button>
-               </div>
+                   <div className="btn-group" role="group">
+                     <button className='btn btn-default'
+                             onClick={this._changeView.bind(this, (this.state.sectionContent.id - 2))}
+                             disabled={this.state.sectionContent.id === 1 ? true : false}>
+                             &laquo; Previous
+                     </button>
+                   </div>
 
-              <div className="btn-group" role="group">
-                <button className='btn btn-default'
-                        onClick={this.newSection}>
-                        {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
-                </button>
-              </div>
+                  <div className="btn-group" role="group">
+                    <button className='btn btn-default'
+                            onClick={this.newSection}>
+                            {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
+                    </button>
+                  </div>
 
-              <div className="btn-group" role="group">
-                <button className='btn btn-default'
-                        onClick={this.addWriter.bind(this)}>
-                        {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
-                </button>
+                  <div className="btn-group" role="group">
+                    <button className='btn btn-default'
+                            onClick={this.addWriter.bind(this)}>
+                            {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+                    </button>
 
-              </div>
+                  </div>
 
-              <div className="btn-group" role="group">
-                <button className='btn btn-default'
-                        onClick={this._changeView.bind(this, (this.state.sectionContent.id))}
-                        disabled={this.state.sectionContent.id < sections.length ? false : true}>
-                        Next &raquo;
-                </button>
-              </div>
+                  <div className="btn-group" role="group">
+                    <button className='btn btn-default'
+                            onClick={this._changeView.bind(this, (this.state.sectionContent.id))}
+                            disabled={this.state.sectionContent.id < sections.length ? false : true}>
+                            Next &raquo;
+                    </button>
+                  </div>
+                </div>
+              <Hand words={this.state.hand || hand}
+                    selectCard={this.selectCard}
+                    selectedCards={this.state.selectedCards}/>
             </div>
-          <Hand words={this.state.hand || hand}
-                selectCard={this.selectCard}
-                selectedCards={this.state.selectedCards}/>
+            <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent} user={this.props.user.user}/>
+          </div>
         </div>
-        <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent} user={this.props.user.user}/>
       </div>
     )
+
   }
 }
 
@@ -251,3 +263,54 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { getStory, createSection, removeStory, getNewCards, markSeen })(View);
+
+
+// const holder = {'div': {return(
+// <div className = 'container'>
+//   <div className='col-md-9 border'>
+//     <div className='story2'>{view}</div>
+//     <div className="btn-group btn-group-justified story-bar"
+//          role="group"
+//          aria-label="...">
+//
+//        <div className="btn-group" role="group">
+//          <button className='btn btn-default'
+//                  onClick={this._changeView.bind(this, (this.state.sectionContent.id - 2))}
+//                  disabled={this.state.sectionContent.id === 1 ? true : false}>
+//                  &laquo; Previous
+//          </button>
+//        </div>
+//
+//       <div className="btn-group" role="group">
+//         <button className='btn btn-default'
+//                 onClick={this.newSection}>
+//                 {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
+//         </button>
+//       </div>
+//
+//       <div className="btn-group" role="group">
+//         <button className='btn btn-default'
+//                 onClick={this.addWriter.bind(this)}>
+//                 {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+//         </button>
+//
+//       </div>
+//
+//       <div className="btn-group" role="group">
+//         <button className='btn btn-default'
+//                 onClick={this._changeView.bind(this, (this.state.sectionContent.id))}
+//                 disabled={this.state.sectionContent.id < sections.length ? false : true}>
+//                 Next &raquo;
+//         </button>
+//       </div>
+//     </div>
+//     <Hand words={this.state.hand || hand}
+//           selectCard={this.selectCard}
+//           selectedCards={this.state.selectedCards}/>
+//   </div>
+//   <div className='col-md-3 border'>
+//     <Segment changeView={this._changeView}
+//              sections={sections}
+//              section={this.state.sectionContent} user={this.props.user.user}/>
+//   </div>
+// </div>

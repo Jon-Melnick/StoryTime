@@ -38,9 +38,11 @@ ActiveRecord::Schema.define(version: 20160824090047) do
   add_index "genre_words", ["word_id"], name: "index_genre_words_on_word_id", using: :btree
 
   create_table "genres", force: :cascade do |t|
-    t.string   "genre_type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "genre_type",           null: false
+    t.string   "genre_tab_url",        null: false
+    t.string   "genre_background_url", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "genres", ["genre_type"], name: "index_genres_on_genre_type", using: :btree

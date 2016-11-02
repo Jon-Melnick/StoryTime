@@ -95,12 +95,10 @@ class Genre extends React.Component{
   render(){
     let genres, words, search;
     let header = <h1 className='page-header'> Genres </h1>
-
     if (this.state.genres !== '') {
       genres = map(this.state.genres, (gen) =>{
-        let style = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/c_crop,g_south,x_0,y_0/v1477366373/796c007d80f0ba48a2fbf37d96c046a1_nz9wk7.jpg)', backgroundPosition: 'center',
+        let style = {backgroundImage: gen.tab_img, backgroundPosition: 'center',
         backgroundSize: 'cover'}
-        if (gen.id == 2) style.backgroundImage = 'url(http://res.cloudinary.com/arkean/image/upload/v1477368963/copy-banner-1200-x-500_rrfoea.jpg)'
         let divKey = 'div' + gen.id
         return <div key={divKey}
                     className='col-xs-12 col-md-6'>
@@ -152,9 +150,9 @@ class Genre extends React.Component{
          </span>
        </div>
     }
-
+    let headerHolder = ''
     return(
-      <div>
+      <div className='container top-pad'>
           {header}
         <ul className='list-group'>
           {search}

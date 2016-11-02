@@ -55,8 +55,10 @@ export function getCurrentUser(token) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch=> {
     return axios.get(`api/users`, params).then(
-      res => {setAuthorizationToken(res.data.auth.session_token);
-      dispatch(setCurrentUser(res.data))},
+      res => {
+        setAuthorizationToken(res.data.auth.session_token);
+        dispatch(setCurrentUser(res.data));
+      },
       err => {
         currentUser = null;
         localStorage.removeItem('jwtToken');

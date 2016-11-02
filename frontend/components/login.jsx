@@ -52,23 +52,25 @@ class Login extends React.Component{
       return <div key={val} value={val} className="alert alert-danger">{val}</div>
     })
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-        <form>
-          <div className="form-group">
-          <label className='control-label'>Email or Username </label>
-          <input className='form-control' type="text" onChange={this.onChange} value={this.state.signInAs}/>
+      <div className='container top-pad'>
+        <div className="row">
+          <div className="col-md-4 col-md-offset-4">
+          <form>
+            <div className="form-group">
+            <label className='control-label'>Email or Username </label>
+            <input className='form-control' type="text" onChange={this.onChange} value={this.state.signInAs}/>
+            </div>
+            <div className="form-group">
+              <label className='control-label'>Password </label>
+              <input className='form-control' type="password" onChange={this.onChange} value={this.state.password}/>
+                <br></br>
+            </div>
+            {errors}
+            <div className="form-group">
+              <button className="btn btn-primary btn-lg" onClick={this.onSubmit}>Sign in</button>
+            </div>
+          </form>
           </div>
-          <div className="form-group">
-            <label className='control-label'>Password </label>
-            <input className='form-control' type="password" onChange={this.onChange} value={this.state.password}/>
-              <br></br>
-          </div>
-          {errors}
-          <div className="form-group">
-            <button className="btn btn-primary btn-lg" onClick={this.onSubmit}>Sign in</button>
-          </div>
-        </form>
         </div>
       </div>
     )

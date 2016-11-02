@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
   def index
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
-      # login(@user)
+      @current_user = @user
       render 'api/users/show'
     elsif params[:email]
       @user = User.find_by(email: params[:email])

@@ -114,60 +114,62 @@ class Signup extends React.Component{
   render(){
 
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <form>
+      <div className='container top-pad'>
+        <div className="row">
+          <div className="col-md-4 col-md-offset-4">
+            <form>
 
-            <div className="form-group">
-            <label className='control-label'>Email </label>
-            <input className='form-control'
-                   type="text"
-                   onChange={this.onChange.bind(this)}
-                   onBlur={this.checkUserExists.bind(this)}
-                   value={this.state.email}
-                   id="email"/>
-                   {this.state.errors['email'] ? <div className="alert alert-danger"> {this.state.errors['email']} </div> : ''}
-            </div>
-
-            <div className="form-group">
-            <label className='control-label'>Username </label>
-            <input className='form-control'
-                   type="text"
-                   onChange={this.onChange.bind(this)}
-                   onBlur={this.checkUserExists.bind(this)}
-                   value={this.state.username}
-                   id="username"/>
-                   {this.state.errors['username'] ? <div className="alert alert-danger"> {this.state.errors['username']} </div> : ''}
-            </div>
-
-            <div className="form-group">
-              <label className='control-label'>Password </label>
+              <div className="form-group">
+              <label className='control-label'>Email </label>
               <input className='form-control'
-                     type="password"
+                     type="text"
                      onChange={this.onChange.bind(this)}
-                     onBlur={this.checkPassword.bind(this)}
-                     value={this.state.password}
-                     id="password1"/>
-                   {this.state.errors['password1'] ? <div className="alert alert-danger"> {this.state.errors['password1']} </div> : ''}
-            </div>
+                     onBlur={this.checkUserExists.bind(this)}
+                     value={this.state.email}
+                     id="email"/>
+                     {this.state.errors['email'] ? <div className="alert alert-danger"> {this.state.errors['email']} </div> : ''}
+              </div>
 
-            <div className="form-group">
-              <label className='control-label'>Retype Password </label>
+              <div className="form-group">
+              <label className='control-label'>Username </label>
               <input className='form-control'
-                     type="password"
+                     type="text"
                      onChange={this.onChange.bind(this)}
-                     value={this.state.password}
-                     onBlur={this.confirmPassword.bind(this)}
-                     id="password2"/>
-                   {this.state.errors['password2'] ? <div className="alert alert-danger"> {this.state.errors['password2']} </div> : ''}
-            </div>
+                     onBlur={this.checkUserExists.bind(this)}
+                     value={this.state.username}
+                     id="username"/>
+                     {this.state.errors['username'] ? <div className="alert alert-danger"> {this.state.errors['username']} </div> : ''}
+              </div>
 
-            <div className="form-group">
-              <button className="btn btn-primary btn-lg"
-                      onClick={this.onSubmit.bind(this)}
-                      id='signup-btn'>Sign up</button>
-            </div>
-          </form>
+              <div className="form-group">
+                <label className='control-label'>Password </label>
+                <input className='form-control'
+                       type="password"
+                       onChange={this.onChange.bind(this)}
+                       onBlur={this.checkPassword.bind(this)}
+                       value={this.state.password}
+                       id="password1"/>
+                     {this.state.errors['password1'] ? <div className="alert alert-danger"> {this.state.errors['password1']} </div> : ''}
+              </div>
+
+              <div className="form-group">
+                <label className='control-label'>Retype Password </label>
+                <input className='form-control'
+                       type="password"
+                       onChange={this.onChange.bind(this)}
+                       value={this.state.password}
+                       onBlur={this.confirmPassword.bind(this)}
+                       id="password2"/>
+                     {this.state.errors['password2'] ? <div className="alert alert-danger"> {this.state.errors['password2']} </div> : ''}
+              </div>
+
+              <div className="form-group">
+                <button className="btn btn-primary btn-lg"
+                        onClick={this.onSubmit.bind(this)}
+                        id='signup-btn'>Sign up</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     )
