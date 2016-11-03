@@ -31,7 +31,7 @@ class Signup extends React.Component{
     if (value !== ''){
       this.props.userExist(data).then(res => {
         let errors = this.state.errors;
-        if (res.data.email){
+        if (res.data.user){
           errors[id] = 'There is a user with such ' + id;
         } else {
           errors[id] = '';
@@ -75,7 +75,6 @@ class Signup extends React.Component{
     } else {
       errors['password2'] = '';
     }
-  console.log(this.state);
     this.setState({errors: errors});
   }
 

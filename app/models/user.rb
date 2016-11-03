@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 
 
   def self.find_by_credentials(identifier, password)
-    user = User.find_by(identifier)
+    user = User.where(User.arel_table[:username].lower.matches("#{identifier.downcase}")).first || User.where(User.arel_table[:email].lower.matches("#{identifier.downcase}")).first
     return nil if user.nil?
     user.is_password?(password) ? user : nil
   end

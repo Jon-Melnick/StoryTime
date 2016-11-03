@@ -1,12 +1,13 @@
 class Api::SessionsController < ApplicationController
 
   def create
-    if params[:signInAs].include?('@')
-      identifier = {email: params[:signInAs]}
-    else
-      identifier = {username: params[:signInAs]}
-    end
-    @user = User.find_by_credentials(identifier, params[:password])
+    # if params[:signInAs].include?('@')
+    #   identifier = {email: params[:signInAs]}
+    # else
+    #   identifier = {username: params[:signInAs]}
+    # end
+
+    @user = User.find_by_credentials(params[:signInAs], params[:password])
 
     if @user
       login(@user)

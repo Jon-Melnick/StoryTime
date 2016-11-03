@@ -1,15 +1,15 @@
 class Api::UsersController < ApplicationController
-
+require "byebug"
   def index
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
       @current_user = @user
       render 'api/users/show'
     elsif params[:email]
-      @user = User.find_by(email: params[:email])
+      @user = User.where(User.arel_table[:email].lower.matches("#{params[:email].downcase}")).first
       render 'api/users/show' if @user
     elsif params[:username]
-      @user = User.find_by(username: params[:username])
+      @user = User.where(User.arel_table[:username].lower.matches("#{params[:username].downcase}")).first
       render 'api/users/show' if @user
     elsif params[:search]
       friendIds = current_user.connections.map(&:receiver_id) << current_user.id
