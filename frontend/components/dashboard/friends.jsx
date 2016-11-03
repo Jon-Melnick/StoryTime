@@ -200,7 +200,7 @@ class Friends extends React.Component{
                  role="tab"
                  data-toggle="tab"
                  onClick={this.changeView.bind(this, 'pending')}>
-                  Pending <span class="badge">{this.pending}</span></a></li>
+                  Pending <span class="badge">{this.pending || 0}</span></a></li>
             <li role="presentation">
               <a href=''
                  aria-controls="messages"

@@ -30,7 +30,7 @@ class NavigationBar extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    const links = isAuthenticated ?
+    const links = localStorage.jwtToken ?
       <ul className="nav navbar-nav navbar-right">
         <li><a href="#" onClick={this.redirectTo.bind(this)} name="/logout">Logout</a></li>
       </ul>
@@ -61,7 +61,7 @@ class NavigationBar extends React.Component {
               <li className='hidden'><a href='#'
                       name='/home'
                       onClick={this.redirectTo}>home</a></li>
-              <li className={isAuthenticated ? '' : 'hidden'}><a href='#'
+                    <li className={localStorage.jwtToken ? '' : 'hidden'}><a href='#'
                      name={`/dashboard/${this.props.auth.user.id}`}
                      onClick={this.redirectTo}>dashboard</a></li>
               <li><a href='#'

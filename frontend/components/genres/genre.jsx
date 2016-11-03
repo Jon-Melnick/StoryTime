@@ -129,9 +129,9 @@ class Genre extends React.Component{
     if (this.state.view === 'words') {
       header = <h1 className='page-header'>
                 { this.state.selectedGenre.genre_type }
-                <a href=''>
-                <small className='offset-by-20'
-                       onClick={this.setView.bind(this)}>
+                <a href=''
+                   onClick={this.setView.bind(this)}>
+                <small className='offset-by-20'>
                   go back
                 </small>
               </a>

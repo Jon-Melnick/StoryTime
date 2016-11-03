@@ -17,6 +17,7 @@ class View extends React.Component {
       newSection: false,
       body: '',
       sectionContent: '',
+      sectionContentLoc: 0,
       hand: null,
       view: 'story',
       selectedCards: [],
@@ -115,15 +116,16 @@ class View extends React.Component {
     this.setState({view: view, newSection: false, selectedCards: []})
   }
 
-  _changeView(idx){
+  _changeView(i){
     const {story, user} = this.props
     if (isEmpty(story.sections)) {
       return;
     }
+    let idx = this.state.sectionContentLoc + i;
     if (!story.sections[idx].seen[user.user.id.toString()]){
       this.props.markSeen(user.user.id, story.sections[idx].id);
     }
-    this.setState({sectionContent: story.sections[idx]});
+    this.setState({sectionContent: story.sections[idx], sectionContentLoc: idx});
   }
 
   onChange(e){
@@ -204,8 +206,8 @@ class View extends React.Component {
 
                    <div className="btn-group" role="group">
                      <button className='btn btn-default'
-                             onClick={this._changeView.bind(this, (this.state.sectionContent.id - 2))}
-                             disabled={this.state.sectionContent.id === 1 ? true : false}>
+                             onClick={this._changeView.bind(this, -1)}
+                             disabled={sections[0] && sections[0].id === this.state.sectionContent.id ? true : false}>
                              &laquo; Previous
                      </button>
                    </div>
@@ -227,8 +229,8 @@ class View extends React.Component {
 
                   <div className="btn-group" role="group">
                     <button className='btn btn-default'
-                            onClick={this._changeView.bind(this, (this.state.sectionContent.id))}
-                            disabled={this.state.sectionContent.id < sections.length ? false : true}>
+                            onClick={this._changeView.bind(this, 1)}
+                            disabled={sections[0] && sections[sections.length -1].id === this.state.sectionContent.id ? true : false}>
                             Next &raquo;
                     </button>
                   </div>
