@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-require "byebug"
+
   def index
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
