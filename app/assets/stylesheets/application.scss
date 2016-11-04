@@ -62,6 +62,29 @@
  // 	border-spacing: 0;
  // }
 
+
+#topContainer{
+  margin-top: -50px;
+  height:400px;
+  width:100%;
+  background-size:cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+#infoContainer{
+  background-color: grey;
+  display: flex;
+  align-items: center;
+}
+
+#email{
+  display: flex;
+  align-items: center;
+  background-color: purple;
+}
+
  .small-text{
  	margin: 4px 0;
  	font-size: small;
@@ -73,6 +96,10 @@
    width: 1010px;
    height: 678px;
    background-color: rgba(255, 255, 255, 0.3);
+ }
+
+ .opaque{
+   background-color: rgba(255, 255, 255, 0.5);
  }
 
  .segments {

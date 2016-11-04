@@ -14,7 +14,9 @@ import Home from './components/home'
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
-    <Route path="home" component={Home} />
+    <Route path="home" component={Home}>
+      <Route path="email"/>
+    </Route>
     <Route path="story/:storyId" component={Story}/>
     <Route path="signup" component={Signup} />
     <Route path="login" component={Login} />
