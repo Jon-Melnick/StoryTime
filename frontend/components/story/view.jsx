@@ -214,7 +214,7 @@ class View extends React.Component {
 
     return (
       <div style={background}>
-        <div className = 'container'>
+        <div className = 'container full-height'>
           <div className='story-view2 border'>
           <div className='col-md-9 col-xs-12'>
             <div id="view" className="story">{view}</div>

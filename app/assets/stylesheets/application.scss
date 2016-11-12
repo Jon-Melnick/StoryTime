@@ -203,6 +203,11 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.full-height{
+    height: calc(100vh - 52px);
+    min-height: 750px;
+}
+
 .author-list{
   padding-left: 1em;
 }
