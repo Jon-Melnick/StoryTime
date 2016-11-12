@@ -21,7 +21,8 @@ class View extends React.Component {
       hand: null,
       view: 'story',
       selectedCards: [],
-      errors: {}
+      errors: {},
+      sideOpen: false,
     }
     this.newSection = this.newSection.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -117,15 +118,32 @@ class View extends React.Component {
   }
 
   _changeView(i){
+    console.log(i)
     const {story, user} = this.props
     if (isEmpty(story.sections)) {
       return;
     }
-    let idx = this.state.sectionContentLoc + i;
+    let idx = (i === 0 || !!(parseInt(i))) ? i : (i === "next" ? this.state.sectionContentLoc + 1 : this.state.sectionContentLoc - 1);
+
     if (!story.sections[idx].seen[user.user.id.toString()]){
       this.props.markSeen(user.user.id, story.sections[idx].id);
     }
     this.setState({sectionContent: story.sections[idx], sectionContentLoc: idx});
+  }
+
+  _changeSegmentsView(){
+    let container = document.getElementById('segments-container')
+
+    container.style.right = container.style.right === '0px' ? '-220px' : '0px';
+
+    let tab = document.getElementById('segments-tab')
+
+    if (this.state.sideOpen){
+      tab.style.right = '0px';
+    } else {
+      tab.style.right = '220px';
+    }
+    this.setState({sideOpen: !this.state.sideOpen})
   }
 
   onChange(e){
@@ -196,55 +214,65 @@ class View extends React.Component {
 
     return (
       <div style={background}>
-        <div className='container'>
-          <div className="story-view">
-            <div className='story-container'>
-              <div id="view" className="story"> {view} </div>
-                <div className="btn-group btn-group-justified story-bar"
-                     role="group"
-                     aria-label="...">
+        <div className = 'container'>
+          <div className='story-view2 border'>
+          <div className='col-md-9 col-xs-12'>
+            <div id="view" className="story">{view}</div>
+            <div className="btn-group btn-group-justified story-bar"
+                 role="group"
+                 aria-label="...">
 
-                   <div className="btn-group" role="group">
-                     <button className='btn btn-default'
-                             onClick={this._changeView.bind(this, -1)}
-                             disabled={sections[0] && sections[0].id === this.state.sectionContent.id ? true : false}>
-                             &laquo; Previous
-                     </button>
-                   </div>
+               <div className="btn-group" role="group">
+                 <button className='btn btn-default'
+                         onClick={this._changeView.bind(this, 'prev')}
+                         disabled={sections[0] && sections[0].id === this.state.sectionContent.id ? true : false}>
+                         &laquo; Previous
+                 </button>
+               </div>
 
-                  <div className="btn-group" role="group">
-                    <button className='btn btn-default'
-                            onClick={this.newSection}>
-                            {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
-                    </button>
-                  </div>
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this.newSection}>
+                        {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
+                </button>
+              </div>
 
-                  <div className="btn-group" role="group">
-                    <button className='btn btn-default'
-                            onClick={this.addWriter.bind(this)}>
-                            {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
-                    </button>
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this.addWriter.bind(this)}>
+                        {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+                </button>
 
-                  </div>
+              </div>
 
-                  <div className="btn-group" role="group">
-                    <button className='btn btn-default'
-                            onClick={this._changeView.bind(this, 1)}
-                            disabled={sections[0] && sections[sections.length -1].id === this.state.sectionContent.id ? true : false}>
-                            Next &raquo;
-                    </button>
-                  </div>
-                </div>
-              <Hand words={this.state.hand || hand}
-                    selectCard={this.selectCard}
-                    selectedCards={this.state.selectedCards}/>
+              <div className="btn-group" role="group">
+                <button className='btn btn-default'
+                        onClick={this._changeView.bind(this, 'next')}
+                        disabled={sections[0] && sections[sections.length -1].id === this.state.sectionContent.id ? true : false}>
+                        Next &raquo;
+                </button>
+              </div>
             </div>
-            <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent} user={this.props.user.user}/>
+            <Hand words={this.state.hand || hand}
+                  selectCard={this.selectCard}
+                  selectedCards={this.state.selectedCards}/>
           </div>
+
+          <div id="segments-tab"
+               className='btn btn-default btn-lg col-xs-1'
+               onClick={this._changeSegmentsView.bind(this)}>
+            {this.state.sideOpen ? <span className="glyphicon glyphicon-menu-right"></span> : <span className="glyphicon glyphicon-menu-left"></span>}
+          </div>
+
+          <div id="segments-container" className='col-md-3 col-xs-6 border-left'>
+            <Segment changeView={this._changeView}
+                     sections={sections}
+                     section={this.state.sectionContent} user={this.props.user.user}/>
+          </div>
+        </div>
         </div>
       </div>
     )
-
   }
 }
 
@@ -265,6 +293,57 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { getStory, createSection, removeStory, getNewCards, markSeen })(View);
+
+
+
+      // <div style={background}>
+      //   <div className='container'>
+      //     <div className="story-view">
+      //       <div className='story-container'>
+      //         <div id="view" className="story"> {view} </div>
+      //           <div className="btn-group btn-group-justified story-bar"
+      //                role="group"
+      //                aria-label="...">
+      //
+      //              <div className="btn-group" role="group">
+      //                <button className='btn btn-default'
+      //                        onClick={this._changeView.bind(this, -1)}
+      //                        disabled={sections[0] && sections[0].id === this.state.sectionContent.id ? true : false}>
+      //                        &laquo; Previous
+      //                </button>
+      //              </div>
+      //
+      //             <div className="btn-group" role="group">
+      //               <button className='btn btn-default'
+      //                       onClick={this.newSection}>
+      //                       {this.state.newSection ? (this.state.body === '' ? 'Cancel':'Submit') : 'Create new section'}
+      //               </button>
+      //             </div>
+      //
+      //             <div className="btn-group" role="group">
+      //               <button className='btn btn-default'
+      //                       onClick={this.addWriter.bind(this)}>
+      //                       {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+      //               </button>
+      //
+      //             </div>
+      //
+      //             <div className="btn-group" role="group">
+      //               <button className='btn btn-default'
+      //                       onClick={this._changeView.bind(this, 1)}
+      //                       disabled={sections[0] && sections[sections.length -1].id === this.state.sectionContent.id ? true : false}>
+      //                       Next &raquo;
+      //               </button>
+      //             </div>
+      //           </div>
+      //         <Hand words={this.state.hand || hand}
+      //               selectCard={this.selectCard}
+      //               selectedCards={this.state.selectedCards}/>
+      //       </div>
+      //       <Segment changeView={this._changeView} sections={sections} section={this.state.sectionContent} user={this.props.user.user}/>
+      //     </div>
+      //   </div>
+      // </div>
 
 
 // const holder = {'div': {return(

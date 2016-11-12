@@ -16,7 +16,7 @@ const Hand = React.createClass({
                  onClick={this.props.selectCard}>{val['word']}</li>
     })
     return (
-      <ul className="hand">
+      <ul className="hand container">
         {hand}
       </ul>
     )
