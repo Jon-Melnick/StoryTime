@@ -57,10 +57,10 @@ class NewStory extends React.Component{
     })
     return(
       <div className="row">
-        <div className="col-md-4 col-md-offset-4">
+        <div className="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2 top-pad">
         <form>
           <div className="form-group">
-          <label className='control-label'>Title </label>
+          <label className='control-label'>Title* </label>
           <input className='form-control' type="text" onChange={this.onChange} value={this.state.title} name="title"/>
           </div>
 
@@ -70,7 +70,7 @@ class NewStory extends React.Component{
           </div>
 
           <div className="form-group">
-            <label className='control-label'>Genre </label>
+            <label className='control-label'>Genre* </label>
             <select className='form-control' onChange={this.onChange} name="genre_id">
               <option value={0} > -- choose one -- </option>
               {options}

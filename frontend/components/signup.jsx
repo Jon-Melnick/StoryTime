@@ -115,7 +115,7 @@ class Signup extends React.Component{
     return (
       <div className='container top-pad'>
         <div className="row">
-          <div className="col-md-4 col-md-offset-4">
+          <div className="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
             <form>
 
               <div className="form-group">

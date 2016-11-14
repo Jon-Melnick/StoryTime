@@ -10,18 +10,35 @@ class Home extends React.Component {
   }
 
   componentDidMount(){
-    window.addEventListener("resize", this.resize);
-    this.resize();
+    // window.addEventListener("resize", this.resize);
+    // window.addEventListener("scroll", this.reposition);
+    // this.resize();
   }
 
   componentWillUnmount(){
-    window.removeEventListener("resize", this.resize);
+    // window.removeEventListener("resize", this.resize);
   }
 
   resize(){
     this.containerHeight = $(window).height();
     $(".contentContainer").css("min-height",this.containerHeight)
     window.scrollBy(0,0)
+  }
+
+  reposition(e){
+    console.log($('body').height())
+    let top = e.currentTarget.pageYOffset;
+    let h = $(window).height();
+    let rows = document.getElementsByClassName('contentContainer')
+    let y1 = -(top/2);
+    let y2 = -(top*2);
+    let y3 = -(top);
+    console.log([y1, y2]);
+    rows[0].style.transform = 'translate3d(0px, ' + y1 + 'px, 0px)'
+		rows[1].setAttribute('style', 'transform: translate3d(0px, ' + y2 + 'px, 0px)');
+    console.log([top, h]);
+    rows[2].setAttribute('style', 'transform: translate3d(0px, ' + y3 + 'px, 0px)');
+    // console.log(top)
   }
 
   holder(){
@@ -60,7 +77,7 @@ class Home extends React.Component {
 
     let topBG = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/v1478209602/old-books-stacked-1391967856oLM_cmwok0.jpg)'}
     return(
-      <div className='row'>
+      <div>
         <div className='contentContainer' id='topContainer' style={topBG}>
           <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
             <h1>Welcome to Epic Story Time</h1>
