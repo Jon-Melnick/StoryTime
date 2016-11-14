@@ -19,4 +19,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(session_token: session[:session_token])
   end
 
+  def set_current_user(session_token)
+    session[:session_token] = session_token
+    @current_user ||= User.find_by(session_token: session_token)
+  end
+
 end

@@ -41,7 +41,8 @@ class Dash extends React.Component{
     return (
       <div className='container top-pad'>
         <div className='row'>
-          <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}/>
+          <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}
+          fetched={this.props.fetched}/>
           <Friends klass='col-xs-12 col-md-4'/>
         </div>
       </div>

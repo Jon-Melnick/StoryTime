@@ -64,28 +64,34 @@ class Home extends React.Component {
         <div className='contentContainer' id='topContainer' style={topBG}>
           <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
             <h1>Welcome to Epic Story Time</h1>
-            <p>Thank you for checking out Epic Story Time: alpha. While this webpage is being updated go ahead and start writing stories, adding words to the different genres and if you have any questions or comments, feel free to <a href=''
-                                      onClick={this.scrollTo.bind(this)}>email me</a>.</p>
+            <p>Thank you for checking out Epic Story Time: alpha.
+              While this webpage is being updated go ahead and start writing stories,
+              adding words to the different genres and if you have any questions or comments,
+              feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</p>
 
             <p>Thanks again.</p>
 
             <p>Developer Jon</p>
 
-          <p onClick={()=>window.scrollBy(0, window.innerHeight+2)}>down</p>
+            <p onClick={()=>window.scrollBy(0, window.innerHeight+2)}>down</p>
           </div>
         </div>
 
         <div className='contentContainer' id='infoContainer'>
-          <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
+          <div className='container'>
             <h1>Stuff</h1>
-            <p>Here I will mostly likely display features such as different genres, addig friends and authors, and maybe a third thing... such as the possible soon addition of creating a "choose your own adventure" style story build, too.</p>
+            <p>Here I will mostly likely display features such as different genres, adding friends and authors, and maybe a third thing... such as the possible soon addition of creating a "choose your own adventure" style story build, too.</p>
+            <div className='col-md-4 col-xs-4'>Genres</div>
+            <div className='col-md-4 col-xs-4'>Features</div>
+            <div className='col-md-4 col-xs-4'>Coming soon...</div>
           </div>
         </div>
 
-        <div className='contentContainer' id="email">
+        <div className='contentContainer' id="email-section">
           <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
             <div>
               <h1>Contact me!</h1>
+              <p>If you have any questions, comments, or suggestion just send me a message.</p>
               <form method="post"
                     action="https://formspree.io/jonmelnick@hotmail.com">
 
@@ -104,7 +110,7 @@ class Home extends React.Component {
                   <textarea className='form-control' name="message" id="message" rows="5"></textarea>
                 </div>
 
-                  <button href="mailto:jonmelnick@hotmail.com" className="btn btn-lg">Send Message</button>
+                <button href="mailto:jonmelnick@hotmail.com" className="btn btn-lg">Send Message</button>
               </form>
             </div>
           </div>

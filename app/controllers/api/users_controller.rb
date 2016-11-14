@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
   def index
     if params[:session_token]
       @user = User.find_by(session_token: params[:session_token])
-      @current_user = @user
+      set_current_user(params[:session_token])
       render 'api/users/show'
     elsif params[:email]
       @user = User.where(User.arel_table[:email].lower.matches("#{params[:email].downcase}")).first

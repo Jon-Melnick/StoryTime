@@ -118,7 +118,6 @@ class View extends React.Component {
   }
 
   _changeView(i){
-    console.log(i)
     const {story, user} = this.props
     if (isEmpty(story.sections)) {
       return;

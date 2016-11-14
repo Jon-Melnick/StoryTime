@@ -50,7 +50,7 @@ class Stories extends React.Component{
       <div className={this.props.klass}>
         <div className='page-header'>
           <h1>Your Stories:
-            { isEmpty(this.props.stories)
+            { this.props.fetched && !this.props.stories.length
             ? <small> you currently have none</small>
             : ''}
             <div className='pull-right' >

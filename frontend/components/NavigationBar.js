@@ -36,8 +36,8 @@ class NavigationBar extends React.Component {
       </ul>
       :
       <ul className="nav navbar-nav navbar-right">
-        <li><a href="#" onClick={this.redirectTo} name="/signup">Sign up</a></li>
-        <li><a href="#" onClick={this.redirectTo} name="/login">Login</a></li>
+        <li><a href="#" onClick={this.redirectTo.bind(this)} name="/signup">Sign up</a></li>
+        <li><a href="#" onClick={this.redirectTo.bind(this)} name="/login">Login</a></li>
       </ul>;
 
     return (
@@ -60,13 +60,13 @@ class NavigationBar extends React.Component {
             <ul className='nav navbar-nav'>
               <li className='hidden'><a href='#'
                       name='/home'
-                      onClick={this.redirectTo}>home</a></li>
+                      onClick={this.redirectTo.bind(this)}>home</a></li>
                     <li className={localStorage.jwtToken ? '' : 'hidden'}><a href='#'
                      name={`/dashboard/${this.props.auth.user.id}`}
-                     onClick={this.redirectTo}>dashboard</a></li>
+                     onClick={this.redirectTo.bind(this)}>Dashboard</a></li>
               <li><a href='#'
                      name='/genre'
-                     onClick={this.redirectTo}>genres</a></li>
+                     onClick={this.redirectTo.bind(this)}>Genres</a></li>
             </ul>
             { links }
           </div>
