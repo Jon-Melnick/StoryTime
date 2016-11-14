@@ -7,10 +7,10 @@ import { hashHistory } from 'react-router'
 class NavigationBar extends React.Component {
 
   componentDidMount(){
-    if (!currentUser) {
-      hashHistory.push('/home');
-      return ;
-    }
+    // if (!currentUser) {
+    //   hashHistory.push('/home');
+    //   return ;
+    // }
   }
 
   logout(e){

@@ -22,7 +22,7 @@ scifi = Genre.create!(genre_type: "SciFi", genre_tab_url: 'url(http://res.cloudi
 
 western = Genre.create!(genre_type: "Western", genre_tab_url: "url(http://res.cloudinary.com/arkean/image/upload/c_crop,h_413,x_0,y_107/v1478123441/Wild_Wild_West_by_aSpeckofDust_kklsvo.png)", genre_background_url: "url(http://res.cloudinary.com/arkean/image/upload/c_crop,h_850,q_65,y_129/v1478123475/7MonumentValley_jyfgmq.jpg)")
 
-horror = Genre.create!(genre_type: "Horror", genre_tab_url: "url(http://res.cloudinary.com/arkean/image/upload/c_crop,g_center,h_359,x_47,y_69/v1478123603/3d_dark_night_wallpaper-8_i8lq1u.jpg)", genre_background_url: "url(http://res.cloudinary.com/arkean/image/upload/v1478123645/misty_tree__dark__by_scabeater-d5o778x_p6vt9i.jpg)")
+horror = Genre.create!(genre_type: "Horror", genre_tab_url: "url(http://res.cloudinary.com/arkean/image/upload/c_crop,g_center,h_259,x_47/v1478123603/3d_dark_night_wallpaper-8_i8lq1u.jpg)", genre_background_url: "url(http://res.cloudinary.com/arkean/image/upload/v1478123645/misty_tree__dark__by_scabeater-d5o778x_p6vt9i.jpg)")
 
 steampunk = Genre.create!(genre_type: "Steampunk", genre_tab_url: "url(http://res.cloudinary.com/arkean/image/upload/v1478122875/airship_city_by_min_nguen-d6lnzda_laol2p.jpg)", genre_background_url: "url(http://res.cloudinary.com/arkean/image/upload/v1478122717/steampunk-image_gmnpm9.jpg)")
 
@@ -34,6 +34,16 @@ end
 scifi_words.each do |word|
   word = word.split.each{|w| w[0] = w[0].upcase}.join(' ')
   Word.create!(word: word, genre_id: scifi.id)
+end
+
+western_words.each do |word|
+  word = word.split.each{|w| w[0] = w[0].upcase}.join(' ')
+  Word.create!(word: word, genre_id: western.id)
+end
+
+horror_words.each do |word|
+  word = word.split.each{|w| w[0] = w[0].upcase}.join(' ')
+  Word.create!(word: word, genre_id: horror.id)
 end
 
 jon = User.create!(email: "jonmelnick@hotmail.com", username: "jon", password: "password")

@@ -192,6 +192,7 @@ class Genre extends React.Component{
   }
 
   render(){
+
     let genres, words, search, banner;
     let header = <h1 className='page-header'> Genres </h1>
     if (this.state.genres !== '') {
