@@ -21,6 +21,12 @@ class Login extends React.Component{
     this.onChange = this.onChange.bind(this);
   }
 
+  componentDidMount(){
+    var input = document.getElementsByClassName('form-control')[0];
+    input.focus();
+    input.select();
+  }
+
   onChange(e){
     if (e.currentTarget.type === "password") {
       this.setState({password: e.currentTarget.value})

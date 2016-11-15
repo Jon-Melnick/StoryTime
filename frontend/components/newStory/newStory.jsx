@@ -23,6 +23,9 @@ class NewStory extends React.Component{
     if (this.props.genres.fetched === false) {
       this.props.getGenres();
     }
+    var input = document.getElementsByClassName('form-control')[0];
+    input.focus();
+    input.select();
   }
 
   onChange(e){

@@ -56,7 +56,7 @@ class Stories extends React.Component{
             <div className='pull-right' >
               <Link to="/newStory">
                 <div class="success">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Add New Story"></span>
+                  <span class="new-story glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Add New Story"></span>
                 </div>
               </Link>
             </div>

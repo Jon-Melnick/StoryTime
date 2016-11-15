@@ -20,7 +20,10 @@ class Dash extends React.Component{
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
-    
+
+    let h = $('body').height()
+    document.getElementById('dash').style.height = h;
+
     if (this.props.auth.user.id !== parseInt(this.props.routeParams.userId)) {
       if (!currentUser) {
         hashHistory.push('/login');
@@ -43,12 +46,14 @@ class Dash extends React.Component{
   render(){
     let holder = <Profile klass='col-xs-12 col-md-12'/>
     return (
+      <div id='dash'>
       <div className='container top-pad'>
-        <div className='row'>
+        <div className='row white-opac'>
           <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}
           fetched={this.props.fetched}/>
-          <Friends klass='col-xs-12 col-md-4'/>
+        <Friends klass='col-xs-12 col-md-4 friends'/>
         </div>
+      </div>
       </div>
     )
   }

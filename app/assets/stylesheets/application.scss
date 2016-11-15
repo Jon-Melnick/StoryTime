@@ -92,6 +92,18 @@ body{
   height: 100vh;
 }
 
+#dash{
+  background-image: url(http://res.cloudinary.com/arkean/image/upload/v1478208076/bookshelf_kdggv7.jpg);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  // min-height: 600px;
+}
+
+.white-opac{
+  background-color: rgba(250, 250, 250, 0.8);
+}
+
  .small-text{
  	margin: 4px 0;
  	font-size: small;
@@ -227,6 +239,7 @@ body{
   cursor: pointer;
   margin: 1em;
   padding: .6em;
+  background-color: #00767B;
 }
 
 .border {
@@ -282,6 +295,13 @@ body{
 .lgi{
   min-height: 100px;
   // display: inline-block !important;
+}
+
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    margin-top: 0px;
+    border-bottom: 1px solid #000;
 }
 
 .white{
@@ -342,6 +362,15 @@ body{
 #word-page li{
   // border-left-style: groove;
   background-color: #FCFCFC;
+}
+
+.friends{
+  padding-top: 36px;
+}
+
+.new-story{
+  padding-right: 10px;
+  top: 5px;
 }
 
 

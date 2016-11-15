@@ -17,6 +17,12 @@ class Signup extends React.Component{
     }
   }
 
+  componentDidMount(){
+    var input = document.getElementsByClassName('form-control')[0];
+    input.focus();
+    input.select();
+  }
+
   onChange(e){
       let update = {};
       update[e.currentTarget.id] = e.currentTarget.value;
