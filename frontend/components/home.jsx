@@ -31,7 +31,7 @@ class Home extends React.Component {
   let color2 = "rgb("+r2+","+g2+","+b2+")";
 
    $('#infoContainer').css({
-     background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+     background: "-webkit-gradient(linear, left top, right bottom, from("+color1+"), to("+color2+"))"}).css({
       background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
 
     this.step += this.gradientSpeed;
@@ -60,14 +60,15 @@ class Home extends React.Component {
     this.step = 0,
     this.colorIndices = [0,1,2,3],
     this.gradientSpeed = 0.002,
-    this.interval = setInterval(this.updateGradient.bind(this),10);
+    // this.interval = setInterval(this.updateGradient.bind(this),10);
     // window.addEventListener("resize", this.resize);
-    // window.addEventListener("scroll", this.reposition);
-    // this.resize();
+    window.addEventListener("scroll", this.reposition);
+    this.resize();
   }
 
   componentWillUnmount(){
     clearInterval(this.interval)
+    window.removeEventListener('scroll', this.reposition);
     // window.removeEventListener("resize", this.resize);
   }
 
@@ -78,18 +79,24 @@ class Home extends React.Component {
   }
 
   reposition(e){
-    console.log($('body').height())
+    // console.log($('body').height())
     let top = e.currentTarget.pageYOffset;
     let h = $(window).height();
-    let rows = document.getElementsByClassName('contentContainer')
-    let y1 = -(top/2);
-    let y2 = -(top*2);
-    let y3 = -(top);
-    console.log([y1, y2]);
-    rows[0].style.transform = 'translate3d(0px, ' + y1 + 'px, 0px)'
-		rows[1].setAttribute('style', 'transform: translate3d(0px, ' + y2 + 'px, 0px)');
+    let emailC = document.getElementById('email-section');
+    if(top > h && !emailC.classList.contains('bring-front')){
+      emailC.classList.add('bring-front');
+    } else if (top < h && emailC.classList.contains('bring-front')){
+      emailC.classList.remove('bring-front');
+    }
+    // let rows = document.getElementsByClassName('contentContainer')
+    // let y1 = -(top/2);
+    // let y2 = -(top*2);
+    // let y3 = -(top);
+    // console.log([y1, y2]);
+    // rows[0].style.transform = 'translate3d(0px, ' + y1 + 'px, 0px)'
+		// rows[1].setAttribute('style', 'transform: translate3d(0px, ' + y2 + 'px, 0px)');
     console.log([top, h]);
-    rows[2].setAttribute('style', 'transform: translate3d(0px, ' + y3 + 'px, 0px)');
+    // rows[2].setAttribute('style', 'transform: translate3d(0px, ' + y3 + 'px, 0px)');
     // console.log(top)
   }
 
@@ -107,7 +114,10 @@ class Home extends React.Component {
 
   scrollTo(e){
     e.preventDefault();
-    window.scroll(0, this.findPos(document.getElementById('email')));
+    $("body").animate({ scrollTop: $(document).height() }, "slow");
+
+    // let h = $(window).height() * 2;
+    // window.scroll(0,h);
   }
 
   findPos(obj) {
@@ -142,7 +152,7 @@ class Home extends React.Component {
 
             <p>Developer Jon</p>
 
-            <p onClick={()=>window.scrollBy(0, window.innerHeight+2)}>down</p>
+            <p onClick={()=>$("body").animate({ scrollTop: $('#topContainer').height() }, "slow")}>down</p>
           </div>
         </div>
 
@@ -181,6 +191,13 @@ class Home extends React.Component {
 
                 <button href="mailto:jonmelnick@hotmail.com" className="btn btn-lg">Send Message</button>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <div className='contentContainer' id="filler-section">
+          <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
+            <div>
             </div>
           </div>
         </div>
