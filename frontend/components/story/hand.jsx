@@ -17,6 +17,15 @@ const Hand = React.createClass({
     })
     return (
       <ul className="hand container">
+        <div id='card-refresh'
+             className='black'
+             data-toggle="tooltip"
+             data-placement="left"
+             title="Redraw Cards">
+          <span class="glyphicon glyphicon-refresh"
+                onClick={this.props.redrawAll.bind(this)}
+                aria-hidden="true"></span>
+        </div>
         {hand}
       </ul>
     )

@@ -52,7 +52,8 @@ export function createSection(data) {
   axios.defaults.headers.common['x-csrf-token'] = getCSRF();
   return dispatch => {
     return axios.post('api/sections', data).then(res => {
-      dispatch(addSection(res.data));
+      // console.log(res.data.section)
+      dispatch(addSection(res.data.section));
     })
   }
 }

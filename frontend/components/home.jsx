@@ -1,4 +1,5 @@
 import React from 'react'
+import { hashHistory } from 'react-router'
 
 
 class Home extends React.Component {
@@ -8,8 +9,6 @@ class Home extends React.Component {
       viewing: 'topContainer',
     }
   }
-
-
 
   updateGradient(){
     if ( $===undefined ) return;
@@ -83,10 +82,13 @@ class Home extends React.Component {
     let top = e.currentTarget.pageYOffset;
     let h = $(window).height();
     let emailC = document.getElementById('email-section');
+    let welcome = document.getElementById('welcome')
     if(top > h && !emailC.classList.contains('bring-front')){
       emailC.classList.add('bring-front');
+      welcome.classList.add('hide-tab');
     } else if (top < h && emailC.classList.contains('bring-front')){
       emailC.classList.remove('bring-front');
+      welcome.classList.remove('hide-tab');
     }
     // let rows = document.getElementsByClassName('contentContainer')
     // let y1 = -(top/2);
@@ -95,7 +97,7 @@ class Home extends React.Component {
     // console.log([y1, y2]);
     // rows[0].style.transform = 'translate3d(0px, ' + y1 + 'px, 0px)'
 		// rows[1].setAttribute('style', 'transform: translate3d(0px, ' + y2 + 'px, 0px)');
-    console.log([top, h]);
+    // console.log([top, h]);
     // rows[2].setAttribute('style', 'transform: translate3d(0px, ' + y3 + 'px, 0px)');
     // console.log(top)
   }
@@ -135,39 +137,65 @@ class Home extends React.Component {
     console.log(window);
   }
 
+  holderFeature(){
+    return <a href='' onClick={(e)=>{
+        e.preventDefault();
+        $("body").animate({ scrollTop: $('#topContainer').height() }, "slow")}}><p>Features</p></a>
+  }
+
   render(){
 
     let topBG = {backgroundImage: 'url(http://res.cloudinary.com/arkean/image/upload/v1478209602/old-books-stacked-1391967856oLM_cmwok0.jpg)'}
     return(
       <div>
         <div className='contentContainer' id='topContainer' style={topBG}>
-          <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
-            <h1>Welcome to Epic Story Time</h1>
-            <p>Thank you for checking out Epic Story Time: alpha.
+          <div id="welcome" className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
+            <h1 className='page-header'>Welcome to Epic Story Time</h1>
+            <p className='size22'>{"Ever wanted to write a fantastic story, filled with excitement and adventure but you can't find the time or energy? Sounds like EpicStoryTime is for you. With this web application, you can start a story and invite friends or other authors to join you and collaborate on an endless journey. Feeling stuck? No worries! Each author is given five random words based on the story's genre to help guide you. Each section that is written must include at least one of the words. While the story may never be how you expected, with so many minds coming together, it will be an exciting read as it is manifested."}</p>
+
+          <br/>
+          <br/>
+
+          <h5>Thank you for checking out Epic Story Time: alpha.
               While this webpage is being updated go ahead and start writing stories,
               adding words to the different genres and if you have any questions or comments,
-              feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</p>
+              feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</h5>
 
-            <p>Thanks again.</p>
+            <h5>Thanks again,</h5>
 
-            <p>Developer Jon</p>
-
-            <p onClick={()=>$("body").animate({ scrollTop: $('#topContainer').height() }, "slow")}>down</p>
+            <h5>Developer Jon</h5>
           </div>
         </div>
 
         <div className='contentContainer' id='infoContainer'>
           <div className='container'>
-            <h1>Stuff</h1>
-            <p>Here I will mostly likely display features such as different genres, adding friends and authors, and maybe a third thing... such as the possible soon addition of creating a "choose your own adventure" style story build, too.</p>
-            <div className='col-md-4 col-xs-4'>Genres</div>
-            <div className='col-md-4 col-xs-4'>Features</div>
-            <div className='col-md-4 col-xs-4'>Coming soon...</div>
+            <h1 className='page-header'>Features</h1>
+
+            <div className='col-md-4 col-xs-4 feature'>
+              <img src='http://res.cloudinary.com/arkean/image/upload/v1479593687/genres_x5ihky.png' height='150'/>  <h2>Genres</h2>
+              <p>Choose from 4 different genres, look through their words, and add any that you think fit that style.</p>
+              </div>
+
+            <div className='col-md-4 col-xs-4 feature'>
+              <img src='http://res.cloudinary.com/arkean/image/upload/v1479595888/Screen_Shot_2016-11-19_at_2.50.57_PM_nt8wbu.png' height='150'/>
+
+              <h2>Social</h2>
+
+              <p>Friend other authors and easily add them or other authors to your stories. See how active they are by viewing their total contributions.</p>
+            </div>
+
+            <div className='col-md-4 col-xs-4'>
+              <img src='http://res.cloudinary.com/arkean/image/upload/v1479596880/fork-in-the-road_300_sdqbq4.jpg' height='150'/>
+
+              <h2>Coming Soon</h2>
+
+              <p>More genres and the ability to start your story off as a 'Choose your own adventure', allowing you to add choices to the end of each of your written contributions. </p>
+            </div>
           </div>
         </div>
 
         <div className='contentContainer' id="email-section">
-          <div className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
+          <div id='email-content' className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
             <div>
               <h1>Contact me!</h1>
               <p>If you have any questions, comments, or suggestion just send me a message.</p>

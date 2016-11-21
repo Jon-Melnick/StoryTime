@@ -8,6 +8,7 @@ import map from 'lodash/map'
 import { hashHistory } from 'react-router'
 import Authors from '../authors/authors'
 import isEmpty from 'lodash/isEmpty'
+import Quill from 'react-quill'
 
 
 class View extends React.Component {
@@ -22,6 +23,7 @@ class View extends React.Component {
       view: 'story',
       selectedCards: [],
       errors: {},
+      selectedText: '',
       sideOpen: false,
     }
     this.newSection = this.newSection.bind(this);
@@ -40,6 +42,9 @@ class View extends React.Component {
     } else {
       this._redirectIfNotAllowed(this.setThisState.bind(this))
     }
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   componentWillReceiveProps(props){
@@ -73,11 +78,22 @@ class View extends React.Component {
   }
 
   selectCard(e){
+    e.preventDefault();
+    // document.execCommand('bold')
+    // console.log(document);
+    // document.execCommand('bold')
     if (!this.state.newSection) {
       return
     }
+    // let el = document.getElementById('new-section-form')
+    // console.log(el.textContent);
+    // console.log(this.state.body);
+
+    // let selected = document.createElement('strong');
+    // selected.style.color = 'red';
+    // selected.textContent = this.state.selectedText;
     let body = this.state.body;
-    body = body.replace(/--/g, "");
+    // body = body.replace(/--/g, "");
     const word = e.target.textContent
     const idx = e.target.value
     let state = this.state.selectedCards
@@ -89,8 +105,13 @@ class View extends React.Component {
     state.forEach(word => {
       if (word) {
         let bodyIndex = body.toLowerCase().indexOf(word.toLowerCase())
+        // let bodyIndex = body.toLowerCase().indexOf(this.state.selectedText.toLowerCase())
         if (bodyIndex > -1) {
-          body = body.slice(0, bodyIndex) + "--" + body.slice(bodyIndex, bodyIndex + word.length) + "--" + body.slice(bodyIndex+word.length)
+          // body = body.slice(0, bodyIndex) + "--" + body.slice(bodyIndex, bodyIndex + word.length) + "--" + body.slice(bodyIndex+word.length)
+          // el.textContent = body.slice(0, bodyIndex);
+          // el.appendChild(selected);
+          // el.textContent += body.slice(bodyIndex+word.length)
+
         } else {
           state[idx] = null
         }
@@ -100,6 +121,23 @@ class View extends React.Component {
     this.setState({selectedCards: state, body: body})
   }
 
+  getSelectionText() {
+    var text = "";
+    var activeEl = document.getElementById('new-section-form');
+    var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+    if (
+      (activeElTagName == "textarea" || activeElTagName == "input") &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type) &&
+      (typeof activeEl.selectionStart == "number")
+    ) {
+      text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+    } else if (window.getSelection) {
+        text = window.getSelection().toString();
+    }
+    console.log(text);
+    this.setState({selectedText: text});
+  }
+
   redraw(){
     let card_ids = [];
     this.state.selectedCards.forEach((card, idx)=>{
@@ -107,6 +145,16 @@ class View extends React.Component {
         card_ids.push(this.state.hand[idx].id)
       }
     })
+    this.props.getNewCards(this.props.story.writer_id, card_ids).then(()=>{
+      this.setState({hand: this.props.story.hand})
+    })
+  }
+
+  redrawAll(){
+    let card_ids = map(this.state.hand, (card)=>{
+      return card.id;
+    });
+    console.log(card_ids)
     this.props.getNewCards(this.props.story.writer_id, card_ids).then(()=>{
       this.setState({hand: this.props.story.hand})
     })
@@ -146,7 +194,7 @@ class View extends React.Component {
   }
 
   onChange(e){
-    this.setState({body: e.target.value});
+    this.setState({body: e.target.textContent, selectedText: ''});
   }
 
   selectedCards(){
@@ -171,11 +219,20 @@ class View extends React.Component {
       this.props.createSection(data).then(
         ()=>{
           this.setState({sectionContent: this.props.story.currentSection, body: '', selectedCards: []});
+          setTimeout(()=>{
+            let segments = document.getElementsByClassName('segment');
+            segments[segments.length-1].scrollIntoView();
+          })
         });
     } else {
       errors['section'] = 'You did not select any cards.'
     }
     this.setState({newSection: !this.state.newSection, view: 'story', selectedCards: [], errors: errors})
+    setTimeout(()=>{
+      var input = document.getElementById('new-section-form');
+      if (input){input.focus()}
+      // input.select();
+    });
   }
 
   getView(){
@@ -184,9 +241,10 @@ class View extends React.Component {
       case 'story':
         view = <div className='story-inner'>
           {this.state.newSection ?
-            <textarea id='new-section-form'
+            <div contentEditable='true' id='new-section-form'
                       className='form-control'
                       rows="12"
+                      onKeyUp={this.onChange}
                       onChange={this.onChange}
                       value={this.state.body} />
                     : <div className='black'>{this.state.sectionContent.body}</div>}
@@ -198,6 +256,10 @@ class View extends React.Component {
             </div>
         break;
     }
+    let holer = <Quill ref='editor'
+           value={this.state.body}
+           theme='snow'
+           toolbar={false}/>
     return view;
   }
 
@@ -217,10 +279,10 @@ class View extends React.Component {
           <div className='story-view2 border'>
           <div className='col-md-9 col-xs-12'>
             <div id="view" className="story">{view}</div>
+
             <div className="btn-group btn-group-justified story-bar"
                  role="group"
                  aria-label="...">
-
                <div className="btn-group" role="group">
                  <button className='btn btn-default'
                          onClick={this._changeView.bind(this, 'prev')}
@@ -239,7 +301,7 @@ class View extends React.Component {
               <div className="btn-group" role="group">
                 <button className='btn btn-default'
                         onClick={this.addWriter.bind(this)}>
-                        {this.state.view === 'find authors' ? 'Story' : 'Add A Writer'}
+                        {this.state.view === 'find authors' ? 'Story' : 'Add Authors'}
                 </button>
 
               </div>
@@ -254,6 +316,7 @@ class View extends React.Component {
             </div>
             <Hand words={this.state.hand || hand}
                   selectCard={this.selectCard}
+                  redrawAll={this.redrawAll.bind(this)}
                   selectedCards={this.state.selectedCards}/>
           </div>
 

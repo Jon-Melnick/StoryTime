@@ -27,10 +27,16 @@ class Stories extends React.Component{
       return <li key={story.id}
                  value={story.id}
                  onClick={this.onClick}
-                 className='story-list'>
+                 className='story-list list-group-item'>
                    <div>
                      <h2 className='story-title-view'>
-                       {story.title} {story.unseen > 0 ? <small><span className='badge'>{story.unseen}</span></small> : <div></div>}
+                       {story.title} {story.unseen > 0 ?
+                         <small>
+                           <span className='badge'
+                                 aria-hidden="true" data-toggle="tooltip" data-placement="right" title="Unseen Segments">
+                             {story.unseen}
+                           </span>
+                         </small> : <div></div>}
                      </h2>
                        {story.description}
                      <h6>
@@ -55,15 +61,15 @@ class Stories extends React.Component{
             : ''}
             <div className='pull-right' >
               <Link to="/newStory">
-                <div class="success">
-                  <span class="new-story glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Add New Story"></span>
+                <div className="success">
+                  <span className="new-story glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Add New Story"></span>
                 </div>
               </Link>
             </div>
           </h1>
         </div>
 
-        <ul className='list-group'>
+        <ul className='list-group' id='stories'>
           {this.stories}
         </ul>
 

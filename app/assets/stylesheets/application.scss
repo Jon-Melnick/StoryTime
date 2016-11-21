@@ -77,6 +77,7 @@ body{
   position: fixed;
   z-index: 5;
   background-color: white;
+  text-align: center;
 }
 
 #infoContainer{
@@ -93,12 +94,21 @@ body{
 #email-section{
   display: flex;
   align-items: center;
-  background-color: purple;
+  // background-color: purple;
   width: 100vw;
   // left: 2000px;
+  min-height: 600px;
   margin-top: -52px;
   position: fixed;
   z-index: 3;
+}
+
+#email-content{
+  background-color: #FCFCFC;
+}
+
+#email-content button {
+  margin-bottom: 15px;
 }
 
 #filler-section{
@@ -110,6 +120,28 @@ body{
   top: calc(100vh*2);
   position: absolute;
   z-index: 0;
+}
+
+.features-large{
+  display: block;
+  text-align: center;
+}
+
+.features-small{
+  display: none;
+}
+
+// .feature {
+//   height: 300px;
+//   background-color: #FDFDFD;
+//   padding: 10px 10px;
+//   border: 1px black solid;
+// }
+
+
+.bg-offwhite{
+  // height: 100%;
+  background-color: #FCFCFC;
 }
 
 .bring-front{
@@ -153,6 +185,7 @@ body{
  }
 
  .opaque{
+   padding: 20px 30px;
    background-color: rgba(255, 255, 255, 0.5);
  }
 
@@ -193,6 +226,11 @@ body{
    padding: 4em;
  }
 
+ #stories{
+   max-height: 400px;
+   overflow-y: scroll;
+ }
+
  .story2 {
    height: 570px;
  }
@@ -208,6 +246,7 @@ body{
 
  #new-section-form{
    font-size: 20px;
+   height: 450px;
  }
 
  .story-bar {
@@ -225,6 +264,14 @@ body{
   align-items: flex-end;
   justify-content: space-around;
   border: 1px solid black;
+  position: relative;
+}
+
+#card-refresh{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
 }
 
 .card {
@@ -241,6 +288,7 @@ body{
   justify-content: center;
   align-items: center;
   // line-height: 50px;
+  cursor: pointer;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
@@ -453,6 +501,18 @@ body{
     right: 0px !important;
     position: relative;
   }
+
+  .features-large{
+    display: block;
+  }
+
+  .features-small{
+    display: none;
+  }
+}
+
+.size22{
+  font-size: 22px;
 }
 
 @media screen and (max-width: 992px) {
@@ -477,5 +537,13 @@ body{
       -webkit-transition: all 2s;
       -moz-transition: all 2s;
       transition: all 2s;
+    }
+
+    .features-large{
+      display: none;
+    }
+
+    .features-small{
+      display: block;
     }
 }

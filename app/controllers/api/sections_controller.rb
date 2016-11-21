@@ -13,7 +13,7 @@ class Api::SectionsController < ApplicationController
     @section.user_id = current_user.id
     @section.seen[current_user.id] = true
     if @section.save
-      render json: @section
+      render 'api/sections/show'
     else
       @errors = @section.errors.full_messages
       render 'api/shared/errors'

@@ -41,7 +41,7 @@ class NavigationBar extends React.Component {
       </ul>;
 
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-static-top navbar-default">
         <div className="container">
           <div className="navbar-header">
             <button type="button"

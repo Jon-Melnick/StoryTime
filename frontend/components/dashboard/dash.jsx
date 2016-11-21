@@ -17,9 +17,7 @@ class Dash extends React.Component{
   }
 
   componentDidMount(){
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+    $('[data-toggle="tooltip"]').tooltip()
 
     let h = $('body').height()
     document.getElementById('dash').style.height = h;
@@ -49,9 +47,10 @@ class Dash extends React.Component{
       <div id='dash'>
       <div className='container top-pad'>
         <div className='row white-opac'>
-          <Stories klass='col-xs-12 col-md-8' stories={this.props.stories}
-          fetched={this.props.fetched}/>
-        <Friends klass='col-xs-12 col-md-4 friends'/>
+          <Stories klass='col-xs-12 col-md-8'
+                   stories={this.props.stories}
+                   fetched={this.props.fetched}/>
+          <Friends klass='col-xs-12 col-md-4 friends'/>
         </div>
       </div>
       </div>
