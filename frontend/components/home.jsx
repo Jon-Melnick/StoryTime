@@ -156,14 +156,14 @@ class Home extends React.Component {
           <br/>
           <br/>
 
-          <h5>Thank you for checking out Epic Story Time: alpha.
+          <h4>Thank you for checking out Epic Story Time: alpha.
               While this webpage is being updated go ahead and start writing stories,
               adding words to the different genres and if you have any questions or comments,
-              feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</h5>
+              feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</h4>
 
-            <h5>Thanks again,</h5>
+            <h4>Thanks again,</h4>
 
-            <h5>Developer Jon</h5>
+            <h4>Developer Jon</h4>
           </div>
         </div>
 
