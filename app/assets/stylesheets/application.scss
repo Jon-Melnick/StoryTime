@@ -82,7 +82,7 @@ body{
 }
 
 #infoContainer{
-  background-color: grey;
+  background-color: #fafafa;
   display: flex;
   align-items: center;
   width: 100vw;
@@ -90,6 +90,7 @@ body{
   top: 100vh;
   position: absolute;
   z-index: 10;
+  text-align: center;
 }
 
 #email-section{

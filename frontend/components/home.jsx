@@ -151,7 +151,7 @@ class Home extends React.Component {
         <div className='contentContainer' id='topContainer' style={topBG}>
           <div id="welcome" className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
             <h1 className='page-header'>Welcome to Epic Story Time</h1>
-            <p className='size22'>{"Ever wanted to write a fantastic story, filled with excitement and adventure but you can't find the time or energy? Sounds like EpicStoryTime is for you. With this web application, you can start a story and invite friends or other authors to join you and collaborate on an endless journey. Feeling stuck? No worries! Each author is given five random words based on the story's genre to help guide you. Each section that is written must include at least one of the words. While the story may never be how you expected, with so many minds coming together, it will be an exciting read as it is manifested."}</p>
+            <p className='size22'>{"Have you ever wanted to write a fantastic story, filled with excitement and adventure? Sounds like Epic Story Time is for you! Start a story based on your favorite genre and invite friends or other authors to join you and collaborate on an endless journey. Each author is given five random words based on the story's genre, as a guide. Every section that is written must include at least one of the five words. With so many minds coming together, your story is bound to be an exciting read."}</p>
 
           <br/>
           <br/>
