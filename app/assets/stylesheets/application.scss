@@ -64,6 +64,7 @@
 
 body{
   font-family: 'Goudy Bookletter 1911', serif;
+  font-size: 15px;
 }
 
 
@@ -364,6 +365,14 @@ body{
 // more css, bootstrap fixes
 .navbar{
   margin-bottom: 0 !important;
+}
+
+.navbar-brand{
+  font-size: 22px;
+}
+
+.navbar-nav > li{
+  font-size: 18px;
 }
 
 .top-pad{

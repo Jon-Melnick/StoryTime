@@ -39,9 +39,9 @@ class Stories extends React.Component{
                          </small> : <div></div>}
                      </h2>
                        {story.description}
-                     <h6>
+                     <h5>
                        Authors: {story.authorNames.join(', ')}
-                     </h6>
+                     </h5>
                    </div>
                  </li>
     })

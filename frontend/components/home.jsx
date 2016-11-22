@@ -151,19 +151,17 @@ class Home extends React.Component {
         <div className='contentContainer' id='topContainer' style={topBG}>
           <div id="welcome" className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 opaque'>
             <h1 className='page-header'>Welcome to Epic Story Time</h1>
-            <p className='size22'>{"Have you ever wanted to write a fantastic story, filled with excitement and adventure? Sounds like Epic Story Time is for you! Start a story based on your favorite genre and invite friends or other authors to join you and collaborate on an endless journey. Each author is given five random words based on the story's genre, as a guide. Every section that is written must include at least one of the five words. With so many minds coming together, your story is bound to be an exciting read."}</p>
+            <p className='size22'>{"Have you ever wanted to write a fantastic story, filled with excitement and adventure? Sounds like Epic Story Time is for you! Start a story based on your favorite genre and invite friends or other authors to join you and collaborate on an endless journey. Each author is given five words based on the story's genre, as a guide. Every section written must include at least one of the five words. Authors may also add new words to the genre libraries. With so many minds coming together, your story is bound to be an exciting read."}</p>
 
           <br/>
           <br/>
 
           <h4>Thank you for checking out Epic Story Time: alpha.
-              While this webpage is being updated go ahead and start writing stories,
-              adding words to the different genres and if you have any questions or comments,
+              If you have any questions or comments,
               feel free to <a href='' onClick={this.scrollTo.bind(this)}>email me</a>.</h4>
 
-            <h4>Thanks again,</h4>
 
-            <h4>Developer Jon</h4>
+            <h4>Jon Melnick</h4>
           </div>
         </div>
 
@@ -197,8 +195,8 @@ class Home extends React.Component {
         <div className='contentContainer' id="email-section">
           <div id='email-content' className='col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2'>
             <div>
-              <h1>Contact me!</h1>
-              <p>If you have any questions, comments, or suggestion just send me a message.</p>
+              <h1>Contact</h1>
+              <p>contact Jon if you have any questions, comments, or suggestions.</p>
               <form method="post"
                     action="https://formspree.io/jonmelnick@hotmail.com">
 
